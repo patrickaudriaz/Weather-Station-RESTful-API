@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @media screen and (max-width: 960px) {
   .carousel-control-next-icon {
     right: 60px;
@@ -100,27 +99,4 @@ body {
 
 .card-body {
   padding: 0
-=======
-.title {
-  text-align: right;
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  display: flex;
-}
-
-button {
-  border: none;
-  align-self: center;
-  justify-self: center;
-  margin: 20px;
->>>>>>> ac2759c52e1f3babbff931bdd3ac903ca8c60bfa
 }
