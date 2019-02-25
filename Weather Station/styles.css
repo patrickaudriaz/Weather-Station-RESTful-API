@@ -1,3 +1,102 @@
-.title {
-  text-align: right;
+@media screen and (max-width: 960px) {
+  .carousel-control-next-icon {
+    right: 60px;
+  }
+  .carousel-control-prev-icon {
+    left: 60px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .carousel-item-name {
+    padding-top: 37px !important;
+    font-size: 2.5em !important;
+  }
+
+  .container {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .carousel-item-container,
+  .carousel-item-container2 {
+    border-radius: 0px !important;
+  }
+}
+
+button:focus {
+  outline:none !important;
+}
+
+body {
+  background: rgb(255, 255, 255);
+}
+
+.container {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  filter: drop-shadow(10px 10px 30px #444444);
+}
+
+.col {
+  padding: 0;
+}
+
+.carousel-item-container {
+  border-radius: 40px;
+  width: 100%;
+  padding-bottom: 60px;
+  background:  rgb(70, 70, 70);
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  height: 100px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  position: absolute;
+  top: 60px;
+}
+
+.carousel-item-name {
+  user-select: none;
+  cursor: pointer;
+  text-align: center;
+  padding-top: 35px;
+  color: rgb(223, 66, 66);
+  font-family: "Montserrat", sans-serif;
+  font-size: 3em;
+  margin-bottom:20px;
+}
+
+.carousel-item-name-selected {
+  user-select: none;
+  margin-bottom:20px;
+  cursor: pointer;
+  text-align: center;
+  padding-top: 35px;
+  color: rgb(86, 168, 75);
+  font-family: "Montserrat", sans-serif;
+  font-size: 3em;
+}
+
+.card-body {
+  width :80%;
+  margin:auto;
+}
+
+.button {
+  border: none;
+  background: none;
+}
+
+.arrow-down {
+  width: 20px;
+  margin-bottom:20px;
+}
+
+.card-body {
+  padding: 0
 }

@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>Ex 1.4</title>
-    <meta name="description" content="exercice" />
+    <title>Pber - Weather Station</title>
+    <meta name="description" content="TP WoT" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -13,24 +13,117 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
 
+    <script src="script.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:600|Roboto"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-2">
-          <img src="https://via.placeholder.com/150" />
-        </div>
-        <div class="col-3 offset-7 title">
-          <h1>MY NAME</h1>
-          <h2>EXPERT DEVELOPER</h2>
+        <div class="col">
+          <div
+            id="carouselControls"
+            class="carousel slide carousel-fade"
+            data-ride="false "
+            data-interval="false"
+          >
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="carousel-item-container">
+                  <div
+                    class="carousel-item-name"
+                    onclick="changeColor('berras')"
+                    id="berras"
+                  >
+                    La Berras
+                  </div>
+                  <div class="text-center">
+                    <button
+                    class="button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#map"
+                      aria-expanded="false"
+                      aria-controls="map"
+                    >
+                      <img
+                      class="arrow-down"
+                        src="./assets/expand-button.png"
+                        alt="Clic here to toggle the map"
+                      />
+                    </button>
+
+                    <div class="collapse" id="map">
+                      <div class="card card-body">
+                        <img 
+                          src="./assets/serenity-map.jpg"
+                          alt="this is a very cool map picture !"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="carousel-item-container">
+                  <div
+                    class="carousel-item-name"
+                    onclick="changeColor('farvagny')"
+                    id="farvagny"
+                  >
+                    Farvagny
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a
+              class="carousel-control-prev"
+              href="#carouselControls"
+              role="button"
+              data-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="carousel-control-next"
+              href="#carouselControls"
+              role="button"
+              data-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-
-    <script src="script.js"></script>
-
   </body>
 </html>
