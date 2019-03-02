@@ -8,45 +8,51 @@
 }
 
 @media screen and (max-width: 580px) {
-  .carousel-item-name {
-    padding-top: 37px !important;
-    font-size: 2.5em !important;
+  .carousel-item-name,
+  .carousel-item-name-selected {
+    padding-top: 44px !important;
+    font-size: 2em !important;
+    margin-bottom: 10px !important;
   }
+}
 
-  .container {
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
-  }
-
-  .carousel-item-container,
-  .carousel-item-container2 {
-    border-radius: 0px !important;
+@media screen and (max-width: 770px) {
+  .mycontainer {
+    width: 100% !important;
+    margin: auto;
   }
 }
 
 button:focus {
-  outline:none !important;
+  outline: none !important;
 }
 
 body {
-  background: rgb(255, 255, 255);
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+  height: 100vh;
 }
 
-.container {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  filter: drop-shadow(10px 10px 30px #444444);
+.mycontainer {
+  width: 70%;
+  margin: auto;
 }
 
 .col {
   padding: 0;
 }
 
+.carousel {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
 .carousel-item-container {
-  border-radius: 40px;
+  border-radius: 10px;
+
+  background: rgba(53, 53, 53, 0.8);
   width: 100%;
   padding-bottom: 60px;
-  background:  rgb(70, 70, 70);
 }
 
 .carousel-control-next,
@@ -65,26 +71,26 @@ body {
   cursor: pointer;
   text-align: center;
   padding-top: 35px;
-  color: rgb(223, 66, 66);
+  color: rgb(202, 103, 86);
   font-family: "Montserrat", sans-serif;
   font-size: 3em;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 .carousel-item-name-selected {
   user-select: none;
-  margin-bottom:20px;
+  margin-bottom: 20px;
   cursor: pointer;
   text-align: center;
   padding-top: 35px;
-  color: rgb(86, 168, 75);
+  color: rgb(78, 155, 110);
   font-family: "Montserrat", sans-serif;
   font-size: 3em;
 }
 
 .card-body {
-  width :80%;
-  margin:auto;
+  width: 80%;
+  margin: auto;
 }
 
 .button {
@@ -94,9 +100,24 @@ body {
 
 .arrow-down {
   width: 20px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 .card-body {
-  padding: 0
+  padding: 0;
+}
+
+.card {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.card iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
