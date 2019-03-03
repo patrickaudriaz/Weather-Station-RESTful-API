@@ -29,14 +29,13 @@
       crossorigin="anonymous"
     ></script>
     <script
-      type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"
     ></script>
 
     <script src="script.js"></script>
 
     <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:600|Roboto"
+      href="https://fonts.googleapis.com/css?family=Montserrat:600/Roboto"
       rel="stylesheet"
     />
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
@@ -85,7 +84,7 @@
                   data-toggle="collapse"
                   data-target="#map"
                   aria-expanded="false"
-                  aria-controls="map"
+                  aria-controls="mapB"
                 >
                   <img
                     data-toggle="tooltip"
@@ -97,22 +96,27 @@
                   />
                 </button>
 
-                <div class="collapse" id="map">
+                <div class="collapse" id="mapB">
                   <div class="card card-body">
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21900.06482166946!2d7.1665355215847555!3d46.67597191455767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e60ca9362979b%3A0x208ca0fb236a614d!2sLa+Berra!5e0!3m2!1sfr!2sch!4v1551549818309"
                       width="400"
                       height="300"
-                      frameborder="0"
                       style="border:0"
                       allowfullscreen
                     ></iframe>
                   </div>
                 </div>
               </div>
-              <canvas id="line_chart_temp_berra"></canvas>
-              <canvas id="line_chart_hum_berra"></canvas>
-              <canvas id="line_chart_press_berra"></canvas>
+              <div class="chart">
+                <canvas id="line_chart_temp_berra"></canvas>
+              </div>
+              <div class="chart">
+                <canvas id="line_chart_hum_berra"></canvas>
+              </div>
+              <div class="chart">
+                <canvas id="line_chart_press_berra"></canvas>
+              </div>
             </div>
           </div>
 
@@ -135,7 +139,7 @@
                   data-toggle="collapse"
                   data-target="#map"
                   aria-expanded="false"
-                  aria-controls="map"
+                  aria-controls="mapF"
                 >
                   <img
                     data-toggle="tooltip"
@@ -147,22 +151,27 @@
                   />
                 </button>
 
-                <div class="collapse" id="map">
+                <div class="collapse" id="mapF">
                   <div class="card card-body">
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21878.58580699644!2d7.04666548438554!3d46.72894808123038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e6519ef3224ed%3A0xa0b2c3c1a9a41b48!2s1726+Farvagny!5e0!3m2!1sfr!2sch!4v1551608916878"
                       width="400"
                       height="300"
-                      frameborder="0"
                       style="border:0"
                       allowfullscreen
                     ></iframe>
                   </div>
                 </div>
               </div>
-              <canvas id="line_chart_temp_farva"></canvas>
-              <canvas id="line_chart_hum_farva"></canvas>
-              <canvas id="line_chart_press_farva"></canvas>
+              <div class="chart">
+                <canvas id="line_chart_temp_farva"></canvas>
+              </div>
+              <div class="chart">
+                <canvas id="line_chart_hum_farva"></canvas>
+              </div>
+              <div class="chart">
+                <canvas id="line_chart_press_farva"></canvas>
+              </div>
             </div>
           </div>
         </div>
