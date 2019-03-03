@@ -1,22 +1,22 @@
-var berras = false;
+var berra = false;
 var farvagny = false;
 
 function changeColor(name) {
-  if (name === "berras") {
-    if (berras == false) {
-      berras = true;
-      document.getElementById("berras").classList.remove("carousel-item-name");
+  if (name === "berra") {
+    if (berra == false) {
+      berra = true;
+      document.getElementById("berra").classList.remove("carousel-item-name");
       document
-        .getElementById("berras")
+        .getElementById("berra")
         .classList.add("carousel-item-name-selected");
     } else {
-      berras = false;
+      berra = false;
       document
-        .getElementById("berras")
+        .getElementById("berra")
         .classList.remove("carousel-item-name-selected");
-      document.getElementById("berras").classList.add("carousel-item-name");
+      document.getElementById("berra").classList.add("carousel-item-name");
     }
-    console.log("berras : ", berras);
+    console.log("berra : ", berra);
   } else {
     if (farvagny == false) {
       farvagny = true;
@@ -36,3 +36,7 @@ function changeColor(name) {
     console.log("farvagny : ", farvagny);
   }
 }
+
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});

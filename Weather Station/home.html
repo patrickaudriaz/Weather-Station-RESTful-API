@@ -28,6 +28,10 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"
+    ></script>
 
     <script src="script.js"></script>
 
@@ -39,6 +43,10 @@
   </head>
 
   <body>
+    <div class="header text-center">
+      <img class="logo" src="./assets/logo.png" alt="Logo" />
+    </div>
+
     <div class="mycontainer">
       <div
         id="carouselControls"
@@ -60,10 +68,13 @@
             <div class="carousel-item-container">
               <div
                 class="carousel-item-name"
-                onclick="changeColor('berras')"
-                id="berras"
+                onclick="changeColor('berra')"
+                id="berra"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Démarrer ou arrêter la mesure"
               >
-                La Berras
+                La Berra
               </div>
               <div class="text-center">
                 <button
@@ -75,6 +86,9 @@
                   aria-controls="map"
                 >
                   <img
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Dévoiler ou cacher la carte"
                     class="arrow-down"
                     src="./assets/expand-button.png"
                     alt="Clic here to toggle the map"
@@ -96,14 +110,50 @@
               </div>
             </div>
           </div>
+
           <div class="carousel-item">
             <div class="carousel-item-container">
               <div
                 class="carousel-item-name"
                 onclick="changeColor('farvagny')"
                 id="farvagny"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Démarrer ou arrêter la mesure"
               >
                 Farvagny
+              </div>
+              <div class="text-center">
+                <button
+                  class="button"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#map"
+                  aria-expanded="false"
+                  aria-controls="map"
+                >
+                  <img
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Dévoiler ou cacher la carte"
+                    class="arrow-down"
+                    src="./assets/expand-button.png"
+                    alt="Clic here to toggle the map"
+                  />
+                </button>
+
+                <div class="collapse" id="map">
+                  <div class="card card-body">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21878.58580699644!2d7.04666548438554!3d46.72894808123038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e6519ef3224ed%3A0xa0b2c3c1a9a41b48!2s1726+Farvagny!5e0!3m2!1sfr!2sch!4v1551608916878"
+                      width="400"
+                      height="300"
+                      frameborder="0"
+                      style="border:0"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -128,5 +178,8 @@
         </a>
       </div>
     </div>
+
+    <div class="footer text-center sticky-bottom">WoT 2019 - Tschopp, Audriaz
+      </div>
   </body>
 </html>

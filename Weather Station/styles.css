@@ -5,6 +5,13 @@
   .carousel-control-prev-icon {
     left: 60px;
   }
+  .mycontainer {
+    width: 80% !important;
+    margin: auto;
+  }
+  .card {
+    padding-bottom: 50% !important;
+  }
 }
 
 @media screen and (max-width: 580px) {
@@ -14,12 +21,39 @@
     font-size: 2em !important;
     margin-bottom: 10px !important;
   }
+  .logo {
+    margin-top: 40px !important;
+    width: 70% !important;
+  }
+  .carousel-control-next-icon {
+    right: 30px !important;
+  }
+  .carousel-control-prev-icon {
+    left: 30px !important;
+  }
+  .footer {
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+    font-size: 0.9em !important;
+  }
 }
 
 @media screen and (max-width: 770px) {
-  .mycontainer {
-    width: 100% !important;
+  .card-body {
+    width: 80% !important;
     margin: auto;
+  }
+  .mycontainer {
+    width: 90% !important;
+    margin: auto;
+  }
+  .card {
+    padding-bottom: 50% !important;
+  }
+
+  .carousel {
+    margin-top: 40px !important;
+    margin-bottom: 60px !important;
   }
 }
 
@@ -28,14 +62,20 @@ button:focus {
 }
 
 body {
-  background-color: #8BC6EC;
-  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
-  height: 100vh;
+  display:flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  background-color: #8bc6ec;
+  background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+  min-height: 100vh;
+  height:100%;
 }
 
 .mycontainer {
-  width: 70%;
+  width: 65%;
+  max-width: 900px;
   margin: auto;
+  min-height:80vh;
 }
 
 .col {
@@ -44,12 +84,12 @@ body {
 
 .carousel {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
 }
 
 .carousel-item-container {
   border-radius: 10px;
-
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 5px 65px -13px;
   background: rgba(53, 53, 53, 0.8);
   width: 100%;
   padding-bottom: 60px;
@@ -89,7 +129,7 @@ body {
 }
 
 .card-body {
-  width: 80%;
+  width: 60%;
   margin: auto;
 }
 
@@ -109,7 +149,7 @@ body {
 
 .card {
   overflow: hidden;
-  padding-bottom: 56.25%;
+  padding-bottom: 35%;
   position: relative;
   height: 0;
 }
@@ -120,4 +160,18 @@ body {
   height: 100%;
   width: 100%;
   position: absolute;
+}
+
+.logo {
+  margin-top: 50px;
+  width: 400px;
+  height: auto;
+}
+
+.footer {
+  color: rgb(255, 255, 255);
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: rgba(0,0,0,.1);
+  font-size: 1em;
 }
