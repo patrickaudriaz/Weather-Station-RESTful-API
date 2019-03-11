@@ -31,8 +31,9 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"
     ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:600/Roboto"
@@ -62,6 +63,7 @@
             class="active"
           ></li>
           <li data-target="#carouselControls" data-slide-to="1"></li>
+          <li data-target="#carouselControls" data-slide-to="2"></li>
         </ol>
 
         <div class="carousel-inner">
@@ -69,13 +71,13 @@
             <div class="carousel-item-container">
               <div
                 class="carousel-item-name"
-                onclick="changeColor('berra')"
-                id="berra"
+                onclick="changeColor('sta1')"
+                id="sta1"
                 data-toggle="tooltip"
                 data-placement="bottom"
                 title="Démarrer ou arrêter la mesure"
               >
-                La Berra
+              Posieux
               </div>
               <div class="text-center">
                 <button
@@ -99,7 +101,7 @@
                 <div class="collapse" id="map">
                   <div class="card card-body">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21900.06482166946!2d7.1665355215847555!3d46.67597191455767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e60ca9362979b%3A0x208ca0fb236a614d!2sLa+Berra!5e0!3m2!1sfr!2sch!4v1551549818309"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21863.80857360615!2d7.07850538444504!3d46.765368111465456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e6f876632aae1%3A0x2cd1ecf37647ae7e!2sHauterive!5e0!3m2!1sfr!2sch!4v1552306953845"
                       width="400"
                       height="300"
                       style="border:0"
@@ -109,13 +111,13 @@
                 </div>
               </div>
               <div class="chart">
-                <canvas id="line_chart_temp_berra"></canvas>
+                <canvas id="line_chart_temp_sta1"></canvas>
               </div>
               <div class="chart">
-                <canvas id="line_chart_hum_berra"></canvas>
+                <canvas id="line_chart_hum_sta1"></canvas>
               </div>
               <div class="chart">
-                <canvas id="line_chart_press_berra"></canvas>
+                <canvas id="line_chart_press_sta1"></canvas>
               </div>
             </div>
           </div>
@@ -124,13 +126,13 @@
             <div class="carousel-item-container">
               <div
                 class="carousel-item-name"
-                onclick="changeColor('farvagny')"
-                id="farvagny"
+                onclick="changeColor('sta2')"
+                id="sta2"
                 data-toggle="tooltip"
                 data-placement="bottom"
                 title="Démarrer ou arrêter la mesure"
               >
-                Farvagny
+              Moléson
               </div>
               <div class="text-center">
                 <button
@@ -154,7 +156,7 @@
                 <div class="collapse" id="map">
                   <div class="card card-body">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21878.58580699644!2d7.04666548438554!3d46.72894808123038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e6519ef3224ed%3A0xa0b2c3c1a9a41b48!2s1726+Farvagny!5e0!3m2!1sfr!2sch!4v1551608916878"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9190.662845654193!2d7.034611094649093!3d46.5606007601556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e88e328799575%3A0x506f82873b5218cf!2sMol%C3%A9son-Village%2C+1663+Gruy%C3%A8res!5e0!3m2!1sfr!2sch!4v1552306888842"
                       width="400"
                       height="300"
                       style="border:0"
@@ -164,13 +166,68 @@
                 </div>
               </div>
               <div class="chart">
-                <canvas id="line_chart_temp_farva"></canvas>
+                <canvas id="line_chart_temp_sta2"></canvas>
               </div>
               <div class="chart">
-                <canvas id="line_chart_hum_farva"></canvas>
+                <canvas id="line_chart_hum_sta2"></canvas>
               </div>
               <div class="chart">
-                <canvas id="line_chart_press_farva"></canvas>
+                <canvas id="line_chart_press_sta2"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="carousel-item-container">
+              <div
+                class="carousel-item-name"
+                onclick="changeColor('sta3')"
+                id="sta3"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Démarrer ou arrêter la mesure"
+              >
+              Zermatt
+              </div>
+              <div class="text-center">
+                <button
+                  class="button"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#map"
+                  aria-expanded="false"
+                  aria-controls="map"
+                >
+                  <img
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Dévoiler ou cacher la carte"
+                    class="arrow-down"
+                    src="./assets/expand-button.png"
+                    alt="Clic here to toggle the map"
+                  />
+                </button>
+
+                <div class="collapse" id="map">
+                  <div class="card card-body">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d88704.87577360868!2d7.671905413570619!3d45.99068282734062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478f35a2292ee5cd%3A0x400ff8840196f70!2s3920+Zermatt!5e0!3m2!1sfr!2sch!4v1552307217323"
+                      width="400"
+                      height="300"
+                      style="border:0"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+              <div class="chart">
+                <canvas id="line_chart_temp_sta3"></canvas>
+              </div>
+              <div class="chart">
+                <canvas id="line_chart_hum_sta3"></canvas>
+              </div>
+              <div class="chart">
+                <canvas id="line_chart_press_sta3"></canvas>
               </div>
             </div>
           </div>

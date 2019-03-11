@@ -1,48 +1,63 @@
-var berra = false;
-var farvagny = false;
+var sta1 = false;
+var sta2 = false;
+var sta3 = false;
+
+$(document).ready(function() {});
 
 function changeColor(name) {
-  if (name === "berra") {
-    if (berra == false) {
-      berra = true;
-      document.getElementById("berra").classList.remove("carousel-item-name");
+  if (name === "sta1") {
+    if (sta1 == false) {
+      sta1 = true;
+      document.getElementById("sta1").classList.remove("carousel-item-name");
       document
-        .getElementById("berra")
+        .getElementById("sta1")
         .classList.add("carousel-item-name-selected");
     } else {
-      berra = false;
+      sta1 = false;
       document
-        .getElementById("berra")
+        .getElementById("sta1")
         .classList.remove("carousel-item-name-selected");
-      document.getElementById("berra").classList.add("carousel-item-name");
+      document.getElementById("sta1").classList.add("carousel-item-name");
     }
-    console.log("berra : ", berra);
-  } else {
-    if (farvagny == false) {
-      farvagny = true;
+    console.log("sta1 : ", sta1);
+  }
+  if (name === "sta2") {
+    if (sta2 == false) {
+      sta2 = true;
+      document.getElementById("sta2").classList.remove("carousel-item-name");
       document
-        .getElementById("farvagny")
-        .classList.remove("carousel-item-name");
-      document
-        .getElementById("farvagny")
+        .getElementById("sta2")
         .classList.add("carousel-item-name-selected");
     } else {
-      farvagny = false;
+      sta2 = false;
       document
-        .getElementById("farvagny")
+        .getElementById("sta2")
         .classList.remove("carousel-item-name-selected");
-      document.getElementById("farvagny").classList.add("carousel-item-name");
+      document.getElementById("sta2").classList.add("carousel-item-name");
     }
-    console.log("farvagny : ", farvagny);
+    console.log("sta2 : ", sta2);
+  }
+
+  if (name === "sta3") {
+    if (sta3 == false) {
+      sta3 = true;
+      document.getElementById("sta3").classList.remove("carousel-item-name");
+      document
+        .getElementById("sta3")
+        .classList.add("carousel-item-name-selected");
+    } else {
+      sta3 = false;
+      document
+        .getElementById("sta3")
+        .classList.remove("carousel-item-name-selected");
+      document.getElementById("sta3").classList.add("carousel-item-name");
+    }
+    console.log("sta3 : ", sta3);
   }
 }
 
-$(function() {
-  $('[data-toggle="tooltip"]').tooltip();
-});
-
 window.onload = function() {
-  var ctx = document.getElementById("line_chart_temp_berra");
+  var ctx = document.getElementById("line_chart_temp_sta1");
   var line_chart_temp = new Chart(ctx, {
     type: "line",
     data: {
@@ -108,7 +123,7 @@ window.onload = function() {
     }
   });
 
-  var ctx2 = document.getElementById("line_chart_hum_berra");
+  var ctx2 = document.getElementById("line_chart_hum_sta1");
   var line_chart_hum = new Chart(ctx2, {
     type: "line",
     data: {
@@ -174,7 +189,7 @@ window.onload = function() {
     }
   });
 
-  var ctx3 = document.getElementById("line_chart_press_berra");
+  var ctx3 = document.getElementById("line_chart_press_sta1");
   var line_chart_press = new Chart(ctx3, {
     type: "line",
     data: {
@@ -251,7 +266,7 @@ window.onload = function() {
     }
   });
 
-  var ctx = document.getElementById("line_chart_temp_farva");
+  var ctx = document.getElementById("line_chart_temp_sta2");
   var line_chart_temp = new Chart(ctx, {
     type: "line",
     data: {
@@ -317,7 +332,7 @@ window.onload = function() {
     }
   });
 
-  var ctx2 = document.getElementById("line_chart_hum_farva");
+  var ctx2 = document.getElementById("line_chart_hum_sta2");
   var line_chart_hum = new Chart(ctx2, {
     type: "line",
     data: {
@@ -383,7 +398,7 @@ window.onload = function() {
     }
   });
 
-  var ctx3 = document.getElementById("line_chart_press_farva");
+  var ctx3 = document.getElementById("line_chart_press_sta2");
   var line_chart_press = new Chart(ctx3, {
     type: "line",
     data: {
