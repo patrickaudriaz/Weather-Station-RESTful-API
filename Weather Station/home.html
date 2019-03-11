@@ -24,10 +24,7 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"
-    ></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 
     <script src="main.js"></script>
 
@@ -63,171 +60,67 @@
         </ol>
 
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="carousel-item-container">
-              <div
-                class="carousel-item-name"
-                onclick="updateDisplay('sta1')"
-                id="sta1"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Démarrer ou arrêter la mesure"
-              >
-              Posieux
-              </div>
-              <div class="text-center">
-                <button
-                  class="button"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#map"
-                  aria-expanded="false"
-                  aria-controls="map"
-                >
-                  <img
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="Dévoiler ou cacher la carte"
-                    class="arrow-down"
-                    src="./assets/expand-button.png"
-                    alt="Clic here to toggle the map"
-                  />
-                </button>
+          <script type="text/javascript">
+            for (var i = 0; i < stationNbr; i++) {
+              var stationName = stations[i];
+              if (i === 0) {
+                document.write('<div class="carousel-item active">\n');
+              } else {
+                document.write('<div class="carousel-item">\n');
+              }
+              document.write('  <div class="carousel-item-container">\n');
+              document.write("    <div\n");
+              document.write('      class="carousel-item-name"\n');
+              document.write("      id=" + stations[i]);
+              document.write('      data-toggle="tooltip"\n');
+              document.write('      data-placement="bottom"\n');
+              document.write('      title="Démarrer ou arrêter la mesure"\n');
+              document.write("    >\n");
+              document.write(stations[i] + "\n");
+              document.write("    </div>\n");
+              document.write('    <div class="text-center">\n');
+              document.write("      <button\n");
+              document.write('        class="button"\n');
+              document.write('        type="button"\n');
+              document.write('        data-toggle="collapse"\n');
+              document.write('        data-target="#map"\n');
+              document.write('        aria-expanded="false"\n');
+              document.write('        aria-controls="map"\n');
+              document.write("      >\n");
+              document.write("        <img\n");
+              document.write('          data-toggle="tooltip"\n');
+              document.write('          data-placement="bottom"\n');
+              document.write('          title="Dévoiler ou cacher la carte"\n');
+              document.write('          class="arrow-down"\n');
+              document.write('          src="./assets/expand-button.png"\n');
+              document.write('          alt="Clic here to toggle the map"\n');
+              document.write("        />\n");
+              document.write("      </button>\n");
+              document.write("\n");
+              document.write('      <div class="collapse" id="map">\n');
+              document.write('        <div class="card card-body"></div>\n');
+              document.write("      </div>\n");
+              document.write("    </div>\n");
+              document.write('    <div class="chart">\n');
+              document.write('      <canvas id="line_chart_temp"></canvas>\n');
+              document.write("    </div>\n");
+              document.write('    <div class="chart">\n');
+              document.write('      <canvas id="line_chart_hum"></canvas>\n');
+              document.write("    </div>\n");
+              document.write('    <div class="chart">\n');
+              document.write('      <canvas id="line_chart_press"></canvas>\n');
+              document.write("    </div>\n");
+              document.write("  </div>\n");
+              document.write("</div>\n");
 
-                <div class="collapse" id="map">
-                  <div class="card card-body">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21863.80857360615!2d7.07850538444504!3d46.765368111465456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e6f876632aae1%3A0x2cd1ecf37647ae7e!2sHauterive!5e0!3m2!1sfr!2sch!4v1552306953845"
-                      width="400"
-                      height="300"
-                      style="border:0"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_temp_sta1"></canvas>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_hum_sta1"></canvas>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_press_sta1"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="carousel-item-container">
-              <div
-                class="carousel-item-name"
-                onclick="updateDisplay('sta2')"
-                id="sta2"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Démarrer ou arrêter la mesure"
-              >
-              Moléson
-              </div>
-              <div class="text-center">
-                <button
-                  class="button"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#map"
-                  aria-expanded="false"
-                  aria-controls="map"
-                >
-                  <img
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="Dévoiler ou cacher la carte"
-                    class="arrow-down"
-                    src="./assets/expand-button.png"
-                    alt="Clic here to toggle the map"
-                  />
-                </button>
-
-                <div class="collapse" id="map">
-                  <div class="card card-body">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9190.662845654193!2d7.034611094649093!3d46.5606007601556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e88e328799575%3A0x506f82873b5218cf!2sMol%C3%A9son-Village%2C+1663+Gruy%C3%A8res!5e0!3m2!1sfr!2sch!4v1552306888842"
-                      width="400"
-                      height="300"
-                      style="border:0"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_temp_sta2"></canvas>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_hum_sta2"></canvas>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_press_sta2"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="carousel-item-container">
-              <div
-                class="carousel-item-name"
-                onclick="updateDisplay('sta3')"
-                id="sta3"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Démarrer ou arrêter la mesure"
-              >
-              Zermatt
-              </div>
-              <div class="text-center">
-                <button
-                  class="button"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#map"
-                  aria-expanded="false"
-                  aria-controls="map"
-                >
-                  <img
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="Dévoiler ou cacher la carte"
-                    class="arrow-down"
-                    src="./assets/expand-button.png"
-                    alt="Clic here to toggle the map"
-                  />
-                </button>
-
-                <div class="collapse" id="map">
-                  <div class="card card-body">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d88704.87577360868!2d7.671905413570619!3d45.99068282734062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478f35a2292ee5cd%3A0x400ff8840196f70!2s3920+Zermatt!5e0!3m2!1sfr!2sch!4v1552307217323"
-                      width="400"
-                      height="300"
-                      style="border:0"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_temp_sta3"></canvas>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_hum_sta3"></canvas>
-              </div>
-              <div class="chart">
-                <canvas id="line_chart_press_sta3"></canvas>
-              </div>
-            </div>
-          </div>
+              console.log(stationName);
+              $("#" + stations[i]).click(function() {
+                console.log(stationName);
+              });
+            }
+          </script>
         </div>
+
         <a
           class="carousel-control-prev"
           href="#carouselControls"
