@@ -2,9 +2,11 @@ var sta1 = false;
 var sta2 = false;
 var sta3 = false;
 
-$(document).ready(function() {});
+$(document).ready(function() {
+  function getWeatherStationData() {}
+});
 
-function changeColor(name) {
+function updateDisplay(name) {
   if (name === "sta1") {
     if (sta1 == false) {
       sta1 = true;
@@ -55,6 +57,10 @@ function changeColor(name) {
     console.log("sta3 : ", sta3);
   }
 }
+
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
 window.onload = function() {
   var ctx = document.getElementById("line_chart_temp_sta1");
