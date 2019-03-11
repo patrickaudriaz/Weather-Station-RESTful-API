@@ -9,22 +9,12 @@ var delay = 2000;
 
 $(document).ready(function() {
   console.log("Document is ready !");
-
-  // call to start loop
-  timer = setInterval(function() {
-    console.log("tick");
-  }, delay);
-
-  // call to top loop
-  clearInterval();
-  timer = null;
 });
 
 getWeatherStationData();
 
 function getWeatherStationData() {
   var requestURL = allURL;
-  var stationsGET = [];
 
   $.ajax({
     method: "GET",
@@ -36,15 +26,17 @@ function getWeatherStationData() {
 
     success: function(data) {
       //console.log(JSON.stringify(data.stations));
-      stationsGET = data;
-      $.each(data.stationsGET, function(index, value) {
+      $.each(data.stations, function(index, value) {
         console.log(
           "Datas from stations located at " +
             JSON.stringify(value.location) +
             " are ready !"
         );
-        console.log(data.stationsGET[index]);
-        console.log(data.stationsGET.length);
+        console.log(data.stations[index]);
+        console.log("Theres is actually " + data.stations.length + " stations");
+        stationNbr = data.stations.length;
+        console.log(stationNbr);
+
         updateDisplay(value);
       });
     },
@@ -59,27 +51,34 @@ function getWeatherStationData() {
 }
 
 function updateDisplay(name) {
-  console.log(name);
   for (var i = 0; i < stationNbr; i++) {
-    if (name === stations[i]) {
+    if (name.id == stations[i]) {
       if (stationsState[i] == false) {
         stationsState[i] = true;
         document
           .getElementById(stations[i])
           .classList.remove("carousel-item-name");
         document
-          .getElementById("sta1")
+          .getElementById(stations[i])
           .classList.add("carousel-item-name-selected");
+        // call to start loop
+        timers[i] = setInterval(function() {
+          console.log("tick");
+        }, delay);
       } else {
-        stations[i] = false;
+        stationsState[i] = false;
         document
           .getElementById(stations[i])
           .classList.remove("carousel-item-name-selected");
         document
           .getElementById(stations[i])
           .classList.add("carousel-item-name");
+        // call to top loop
+        clearInterval(timers[i]);
+        timers[i] = null;
+        console.log("STOP");
       }
-      console.log(stations[i] + stationsState[i]);
+      console.log(stations[i] + " : " + stationsState[i]);
     }
   }
 }

@@ -62,7 +62,6 @@
         <div class="carousel-inner">
           <script type="text/javascript">
             for (var i = 0; i < stationNbr; i++) {
-              var stationName = stations[i];
               if (i === 0) {
                 document.write('<div class="carousel-item active">\n');
               } else {
@@ -70,8 +69,13 @@
               }
               document.write('  <div class="carousel-item-container">\n');
               document.write("    <div\n");
-              document.write('      class="carousel-item-name"\n');
-              document.write("      id=" + stations[i]);
+              if (stationsState[i] == false) {
+                document.write('      class="carousel-item-name"\n');
+              } else {
+                document.write('      class="carousel-item-name-selected"\n');
+              }
+              document.write("onclick=" + "updateDisplay(" + stations[i] + ")");
+              document.write("                id=" + stations[i] + " \n");
               document.write('      data-toggle="tooltip"\n');
               document.write('      data-placement="bottom"\n');
               document.write('      title="Démarrer ou arrêter la mesure"\n');
@@ -112,11 +116,6 @@
               document.write("    </div>\n");
               document.write("  </div>\n");
               document.write("</div>\n");
-
-              console.log(stationName);
-              $("#" + stations[i]).click(function() {
-                console.log(stationName);
-              });
             }
           </script>
         </div>
