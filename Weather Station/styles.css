@@ -17,8 +17,8 @@
 @media screen and (max-width: 580px) {
   .carousel-item-name,
   .carousel-item-name-selected {
-    padding-top: 44px !important;
-    font-size: 2em !important;
+    padding-top: 48px !important;
+    font-size: 1.8em !important;
     margin-bottom: 10px !important;
   }
   .logo {

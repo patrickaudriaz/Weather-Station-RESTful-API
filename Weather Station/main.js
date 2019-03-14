@@ -8,6 +8,27 @@ var allURL = "http://appint01.tic.heia-fr.ch/";
 var delay = 2000;
 
 $(document).ready(function() {
+  // Auto-generate carousel indicator html
+  var bootCarousel = $(".carousel");
+  bootCarousel.append("<ol class='carousel-indicators'></ol>");
+  var indicators = $(".carousel-indicators");
+  bootCarousel
+    .find(".carousel-inner")
+    .children(".carousel-item")
+    .each(function(index) {
+      index === 0
+        ? indicators.append(
+            "<li data-target='#carouselControls' data-slide-to='" +
+              index +
+              "' class='active'></li>"
+          )
+        : indicators.append(
+            "<li data-target='#carouselControls' data-slide-to='" +
+              index +
+              "'></li>"
+          );
+    });
+
   console.log("Document is ready !");
 });
 
