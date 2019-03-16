@@ -1,14 +1,194 @@
-var stations = ["Posieux", "MolésonVillage", "Zermatt"];
-var stationNbr = stations.length;
+var stations = [];
+var stationNbr;
 var stationsState = Array(stationNbr).fill(false);
 var timers = Array(stationNbr).fill(null);
 
 var allURL = "http://appint01.tic.heia-fr.ch/";
 
 var delay = 2000;
+// --------------------------------------------------------------------
 
+// 2) Ecrire la fonction $(document).ready()
 $(document).ready(function() {
-  // Auto-generate carousel indicator html
+  getWeatherStationData();
+
+  console.log("Document is ready !");
+});
+// --------------------------------------------------------------------
+
+// 5 ) Création d’une fonction permettant de mettre à jour les données d’une station météo
+function updateWeatherStationData(data) {
+  // TODO
+}
+// --------------------------------------------------------------------
+
+// 7) Création d’une fonction permettant de modifier l’état de la station météo
+function switchWeatherStationState(state, device) {
+  // TODO
+}
+// --------------------------------------------------------------------
+
+// 3) requête HTTP Ajax asynchrone (méthode : GET) afin d’obtenir l’état complet de toutes les stations météo.
+function getWeatherStationData() {
+  $.ajax({
+    method: "GET",
+    url: allURL,
+    headers: {
+      Accept: "application/json"
+      //"Content-type" : "application/json"
+    },
+
+    success: function(data) {
+      $.each(data.stations, function(index, value) {
+        console.log(
+          "Datas from stations located at " +
+            JSON.stringify(value.location) +
+            " are ready !"
+        );
+        console.log(data.stations[index]);
+        stations.push(value.location);
+      });
+      stationNbr = data.stations.length;
+      stationsState = Array(stationNbr).fill(false);
+      timers = Array(stationNbr).fill(null);
+      console.log("There is " + stationNbr + " stations");
+
+      // en cas de succès, afficher chaque station météo en appelant la fonction updateDisplay()
+      updateDisplay();
+      carouselIndicators();
+    },
+
+    error: function(xhr, status, error) {
+      alert("error");
+      console.log("xhr: " + xhr);
+      console.log("status: " + status);
+      console.log("error: " + error);
+    }
+  });
+}
+// --------------------------------------------------------------------
+
+function updateDisplay(data) {
+  //  4) fonction doit mettre à jour votre interface graphique pour chaque station météo existante et selon le design de votre application
+  console.log("show interface");
+  console.log(stations);
+  for (var i = 0; i < stationNbr; i++) {
+    if (i === 0) {
+      $(".carousel-inner").append(
+        '<div class="carousel-item item' + i + ' active"></div>'
+      );
+    } else {
+      $(".carousel-inner").append(
+        '<div class="carousel-item item' + i + '"></div>'
+      );
+    }
+
+    $(".item" + i).append(
+      '<div class="carousel-item-container itemcontainer' + i + ' "></div>'
+    );
+
+    if (stationsState[i] == false) {
+      $(".itemcontainer" + i).append(
+        '<div class="carousel-item-name" onclick="stationToggle(' +
+          stations[i] +
+          ')"  id=' +
+          stations[i] +
+          ' data-toggle="tooltip" data-placement="bottom" title="Démarrer ou arrêter la mesure">' +
+          stations[i] +
+          "</div>"
+      );
+    } else {
+      $(".itemcontainer" + i).append(
+        '<div class="carousel-item-name-selected" onclick="stationToggle(' +
+          stations[i] +
+          ')"  id=' +
+          stations[i] +
+          ' data-toggle="tooltip" data-placement="bottom" title="Démarrer ou arrêter la mesure">' +
+          stations[i] +
+          "</div>"
+      );
+    }
+    $(".itemcontainer" + i).append(
+      ' <div class="text-center">\
+        <button\
+          class="button"\
+          type="button"\
+          data-toggle="collapse"\
+          data-target="#map"\
+          aria-expanded="false"\
+          aria-controls="map"\
+        >\
+          <img\
+            data-toggle="tooltip"\
+            data-placement="bottom"\
+            title="Dévoiler ou cacher la carte"\
+            class="arrow-down"\
+            src="./assets/expand-button.png"\
+            alt="Clic here to toggle the map"\
+          />\
+        </button>\
+        <div class="collapse" id="map">\
+          <div class="card card-body">\
+          </div>\
+        </div>\
+      </div>\
+      <!-- !! PRINTING CHARTS !!-->\
+    <div class="chart">\
+        <canvas id="line_chart_temp"></canvas>\
+      </div>\
+      <div class="chart">\
+        <canvas id="line_chart_hum"></canvas>\
+      </div>\
+      <div class="chart">\
+        <canvas id="line_chart_press"></canvas>\
+      </div>\
+    </div>'
+    );
+  }
+}
+// --------------------------------------------------------------------
+
+// 6 ) Création d’un appel temporisé pour la mise à jour des valeurs de la station météo
+function stationToggle(name) {
+  for (var i = 0; i < stationNbr; i++) {
+    if (name.id == stations[i]) {
+      if (stationsState[i] == false) {
+        // start timer
+        stationsState[i] = true;
+        document
+          .getElementById(stations[i])
+          .classList.remove("carousel-item-name");
+        document
+          .getElementById(stations[i])
+          .classList.add("carousel-item-name-selected");
+        // call to start loop
+        timers[i] = setInterval(function() {
+          // TIMER STARTER, CALL UPDATE GRAPHS FUNCTION HERE
+          console.log("tick");
+        }, delay);
+      } else {
+        // stop timer
+        stationsState[i] = false;
+        document
+          .getElementById(stations[i])
+          .classList.remove("carousel-item-name-selected");
+        document
+          .getElementById(stations[i])
+          .classList.add("carousel-item-name");
+        // call to top loop
+        clearInterval(timers[i]);
+        timers[i] = null;
+        // TIMER STOPPED
+        console.log("STOP");
+      }
+      console.log(stations[i] + " : " + stationsState[i]);
+    }
+  }
+}
+// --------------------------------------------------------------------
+
+// Auto-generate carousel indicator html
+function carouselIndicators() {
   var bootCarousel = $(".carousel");
   bootCarousel.append("<ol class='carousel-indicators'></ol>");
   var indicators = $(".carousel-indicators");
@@ -28,81 +208,8 @@ $(document).ready(function() {
               "'></li>"
           );
     });
-
-  console.log("Document is ready !");
-});
-
-getWeatherStationData();
-
-function getWeatherStationData() {
-  var requestURL = allURL;
-
-  $.ajax({
-    method: "GET",
-    url: requestURL,
-    headers: {
-      Accept: "application/json"
-      //"Content-type" : "application/json"
-    },
-
-    success: function(data) {
-      //console.log(JSON.stringify(data.stations));
-      $.each(data.stations, function(index, value) {
-        console.log(
-          "Datas from stations located at " +
-            JSON.stringify(value.location) +
-            " are ready !"
-        );
-        console.log(data.stations[index]);
-        console.log("Theres is actually " + data.stations.length + " stations");
-        stationNbr = data.stations.length;
-        console.log(stationNbr);
-
-        updateDisplay(value);
-      });
-    },
-
-    error: function(xhr, status, error) {
-      alert("error");
-      console.log("xhr: " + xhr);
-      console.log("status: " + status);
-      console.log("error: " + error);
-    }
-  });
 }
-
-function updateDisplay(name) {
-  for (var i = 0; i < stationNbr; i++) {
-    if (name.id == stations[i]) {
-      if (stationsState[i] == false) {
-        stationsState[i] = true;
-        document
-          .getElementById(stations[i])
-          .classList.remove("carousel-item-name");
-        document
-          .getElementById(stations[i])
-          .classList.add("carousel-item-name-selected");
-        // call to start loop
-        timers[i] = setInterval(function() {
-          console.log("tick");
-        }, delay);
-      } else {
-        stationsState[i] = false;
-        document
-          .getElementById(stations[i])
-          .classList.remove("carousel-item-name-selected");
-        document
-          .getElementById(stations[i])
-          .classList.add("carousel-item-name");
-        // call to top loop
-        clearInterval(timers[i]);
-        timers[i] = null;
-        console.log("STOP");
-      }
-      console.log(stations[i] + " : " + stationsState[i]);
-    }
-  }
-}
+// --------------------------------------------------------------------
 
 $(function() {
   $('[data-toggle="tooltip"]').tooltip();
@@ -318,3 +425,4 @@ window.onload = function() {
     }
   });
 };
+// --------------------------------------------------------------------

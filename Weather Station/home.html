@@ -49,66 +49,7 @@
         data-ride="false "
         data-interval="false"
       >
-        <div class="carousel-inner">
-          <script type="text/javascript">
-            for (var i = 0; i < stationNbr; i++) {
-              if (i === 0) {
-                document.write('<div class="carousel-item active">\n');
-              } else {
-                document.write('<div class="carousel-item">\n');
-              }
-              document.write('  <div class="carousel-item-container">\n');
-              document.write("    <div\n");
-              if (stationsState[i] == false) {
-                document.write('      class="carousel-item-name"\n');
-              } else {
-                document.write('      class="carousel-item-name-selected"\n');
-              }
-              document.write("onclick=" + "updateDisplay(" + stations[i] + ")");
-              document.write("                id=" + stations[i] + " \n");
-              document.write('      data-toggle="tooltip"\n');
-              document.write('      data-placement="bottom"\n');
-              document.write('      title="Démarrer ou arrêter la mesure"\n');
-              document.write("    >\n");
-              document.write(stations[i] + "\n");
-              document.write("    </div>\n");
-              document.write('    <div class="text-center">\n');
-              document.write("      <button\n");
-              document.write('        class="button"\n');
-              document.write('        type="button"\n');
-              document.write('        data-toggle="collapse"\n');
-              document.write('        data-target="#map"\n');
-              document.write('        aria-expanded="false"\n');
-              document.write('        aria-controls="map"\n');
-              document.write("      >\n");
-              document.write("        <img\n");
-              document.write('          data-toggle="tooltip"\n');
-              document.write('          data-placement="bottom"\n');
-              document.write('          title="Dévoiler ou cacher la carte"\n');
-              document.write('          class="arrow-down"\n');
-              document.write('          src="./assets/expand-button.png"\n');
-              document.write('          alt="Clic here to toggle the map"\n');
-              document.write("        />\n");
-              document.write("      </button>\n");
-              document.write("\n");
-              document.write('      <div class="collapse" id="map">\n');
-              document.write('        <div class="card card-body"></div>\n');
-              document.write("      </div>\n");
-              document.write("    </div>\n");
-              document.write('    <div class="chart">\n');
-              document.write('      <canvas id="line_chart_temp"></canvas>\n');
-              document.write("    </div>\n");
-              document.write('    <div class="chart">\n');
-              document.write('      <canvas id="line_chart_hum"></canvas>\n');
-              document.write("    </div>\n");
-              document.write('    <div class="chart">\n');
-              document.write('      <canvas id="line_chart_press"></canvas>\n');
-              document.write("    </div>\n");
-              document.write("  </div>\n");
-              document.write("</div>\n");
-            }
-          </script>
-        </div>
+        <div class="carousel-inner"></div>
 
         <a
           class="carousel-control-prev"
