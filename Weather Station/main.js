@@ -56,6 +56,7 @@ function getWeatherStationData() {
       // en cas de succès, afficher chaque station météo en appelant la fonction updateDisplay()
       updateDisplay();
       carouselIndicators();
+      showCharts();
     },
 
     error: function(xhr, status, error) {
@@ -132,7 +133,6 @@ function updateDisplay(data) {
           </div>\
         </div>\
       </div>\
-      <!-- !! PRINTING CHARTS !!-->\
     <div class="chart">\
         <canvas id="line_chart_temp"></canvas>\
       </div>\
@@ -214,8 +214,9 @@ function carouselIndicators() {
 $(function() {
   $('[data-toggle="tooltip"]').tooltip();
 });
+// --------------------------------------------------------------------
 
-window.onload = function() {
+function showCharts() {
   var ctx = document.getElementById("line_chart_temp");
   var line_chart_temp = new Chart(ctx, {
     type: "line",
@@ -424,5 +425,5 @@ window.onload = function() {
       }
     }
   });
-};
+}
 // --------------------------------------------------------------------
