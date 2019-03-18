@@ -3,9 +3,10 @@ var Station = function() {
   this.name = "";
   this.state = false;
   this.timer = null;
-  this.temp = 0;
-  this.hum = 0;
-  this.pres = 0;
+  this.temp = [];
+  this.hum = [];
+  this.pres = [];
+  this.url = "";
 };
 
 var IDindex = 0;
@@ -16,6 +17,30 @@ var stationNbr;
 var allURL = "http://appint01.tic.heia-fr.ch/";
 
 var delay = 2000;
+var displayNbr = 10;
+var updateCount = 0;
+
+var commonOptions = {
+  scales: {
+    xAxes: [{
+      type: 'time',
+      time: {
+        displayFormats: {
+          millisecond: 'mm:ss:SSS'
+        }
+      }
+    }],
+    yAxes: [{
+      ticks: {
+        beginAtZero:true
+      }
+    }]
+  },
+  legend: {display: false},
+  tooltips:{
+    enabled: false
+  }
+};
 // --------------------------------------------------------------------
 
 // 2) Ecrire la fonction $(document).ready()
@@ -27,10 +52,256 @@ $(document).ready(function() {
 // --------------------------------------------------------------------
 
 // 5 ) Création d’une fonction permettant de mettre à jour les données d’une station météo
-function updateWeatherStationData(data) {
-  // TODO
-}
+function updateWeatherStationData(index) {
+  var temp = new Station();
+
+  temp = stations[index];
+  console.log(temp);
+
+  console.log("GET from " + stations[index].name);
+  $.ajax({
+    method: "GET",
+    url: stations[index].url,
+    headers: {
+      Accept: "application/json"
+      //"Content-type" : "application/json"
+    },
+
+    success: function (data) {
+      console.log(data);
+      temp.hum = data.sensors.humidity.current_condition;
+      temp.temp = data.sensors.temperature.current_condition;
+      temp.pres = data.sensors.pressure.current_condition;
+      console.log(temp);
+    },
+
+
+    error: function (xhr, status, error) {
+      alert("error");
+      console.log("xhr: " + xhr);
+      console.log("status: " + status);
+      console.log("error: " + error);
+    },
+  });
+
+  console.log(stations);
+
+  var ctx = document.getElementById("line_chart_temp");
+  var line_chart_temp = new Chart(ctx, {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "Temperature [˚C]",
+          data: 0,
+          borderColor: "#8BC6EC",
+          fontColor: "#DEDEDE",
+          fill: false
+        }
+      ]
+    },
+
+    options: Object.assign({}, commonOptions, {
+        title:{
+          display: false,
+          text: "Acceleration - X",
+          fontSize: 18
+        },
+
+      legend: {
+        labels: {
+          fontColor: "#DEDEDE"
+        }
+      },
+
+      scales: {
+        scaleLabel: {
+          fontColor: "#DEDEDE"
+        },
+
+        xAxes: [
+          {
+            gridLines: {
+              display: false,
+              color: "#DEDEDE",
+              lineWidth: 2
+            }
+          }
+        ],
+
+        yAxes: [
+          {
+            gridLines: {
+              display: false,
+              color: "#DEDEDE",
+              lineWidth: 2
+            }
+          }
+        ]
+      }
+    })
+  });
+
+  /*
+  var ctx2 = document.getElementById("line_chart_hum");
+  var line_chart_hum = new Chart(ctx2, {
+    type: "line",
+    data: {
+      labels: [
+        22.02,
+        23.02,
+        24.02,
+        25.02,
+        26.02,
+        27.02,
+        28.02,
+        1.03,
+        2.03,
+        3.03
+      ],
+      datasets: [
+        {
+          label: "Humidité [%]",
+          data: [39, 42, 46, 45, 42, 43, 43, 41, 39, 43],
+          borderColor: "#b68aec",
+          fontColor: "#DEDEDE",
+          fill: false
+        }
+      ]
+    },
+
+    options: {
+      title: {
+        display: false
+      },
+
+      legend: {
+        labels: {
+          fontColor: "#DEDEDE"
+        }
+      },
+
+      scales: {
+        scaleLabel: {
+          fontColor: "#DEDEDE"
+        },
+
+        xAxes: [
+          {
+            gridLines: {
+              display: false,
+              color: "#DEDEDE",
+              lineWidth: 2
+            }
+          }
+        ],
+
+        yAxes: [
+          {
+            gridLines: {
+              display: false,
+              color: "#DEDEDE",
+              lineWidth: 2
+            }
+          }
+        ]
+      }
+    }
+  });
+
+  var ctx3 = document.getElementById("line_chart_press");
+  var line_chart_press = new Chart(ctx3, {
+    type: "line",
+    data: {
+      labels: [
+        22.02,
+        23.02,
+        24.02,
+        25.02,
+        26.02,
+        27.02,
+        28.02,
+        1.03,
+        2.03,
+        3.03
+      ],
+      datasets: [
+        {
+          label: "Pression [hPa]",
+          data: [
+            1014,
+            1012.8,
+            1015,
+            1014,
+            1016,
+            1015.4,
+            1013.3,
+            1018,
+            1015.4,
+            1013.3
+          ],
+          borderColor: "#ecb984",
+          fontColor: "#DEDEDE",
+          fill: false
+        }
+      ]
+    },
+
+    options: {
+      title: {
+        display: false
+      },
+
+      legend: {
+        labels: {
+          fontColor: "#DEDEDE"
+        }
+      },
+
+      scales: {
+        scaleLabel: {
+          fontColor: "#DEDEDE"
+        },
+
+        xAxes: [
+          {
+            gridLines: {
+              display: false,
+              color: "#DEDEDE",
+              lineWidth: 2
+            }
+          }
+        ],
+
+        yAxes: [
+          {
+            gridLines: {
+              display: false,
+              color: "#DEDEDE",
+              lineWidth: 2
+            }
+          }
+        ]
+      }
+    }
+  });
+  */
+
+  //updateChart(stations[index]);
+
+
+
+    line_chart_temp.data.labels.push(new Date());
+    line_chart_temp.data.datasets.forEach((dataset) =>{dataset.data.push(stations[index].temp.value)});
+    if(updateCount > displayNbr) {
+      line_chart_temp.data.labels.shift();
+      line_chart_temp.data.datasets[0].data.shift();
+    }
+    updateCount++;
+};
+
 // --------------------------------------------------------------------
+
 
 // 7) Création d’une fonction permettant de modifier l’état de la station météo
 function switchWeatherStationState(state, device) {
@@ -57,7 +328,8 @@ function getWeatherStationData() {
         );
         console.log(data.stations[index]);
         var station = new Station();
-        station.id = index;
+        station.id = IDindex;
+        station.url = value.url;
         stations.push(station);
         IDindex++;
         station.name = value.location;
@@ -65,12 +337,15 @@ function getWeatherStationData() {
       });
       stationNbr = data.stations.length;
       console.log("There is " + stationNbr + " stations");
-
-      // en cas de succès, afficher chaque station météo en appelant la fonction updateDisplay()
-      carouselIndicators();
-      showCharts();
-      IDindex = 0;
+      console.log("Show stations array :");
       console.log(stations);
+
+      carouselIndicators();
+
+      for (var i = 0; i < stationNbr; i++) {
+        updateWeatherStationData(i);
+      }
+      IDindex = 0;
     },
 
     error: function(xhr, status, error) {
@@ -227,216 +502,3 @@ function carouselIndicators() {
 $(function() {
   $('[data-toggle="tooltip"]').tooltip();
 });
-// --------------------------------------------------------------------
-
-function showCharts() {
-  var ctx = document.getElementById("line_chart_temp");
-  var line_chart_temp = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: [
-        22.02,
-        23.02,
-        24.02,
-        25.02,
-        26.02,
-        27.02,
-        28.02,
-        1.03,
-        2.03,
-        3.03
-      ],
-      datasets: [
-        {
-          label: "Temperature [˚C]",
-          data: [-12, -13, -5, -5, 0, 7, -2, 3, 9, 12],
-          borderColor: "#8BC6EC",
-          fontColor: "#DEDEDE",
-          fill: false
-        }
-      ]
-    },
-
-    options: {
-      title: {
-        display: false
-      },
-
-      legend: {
-        labels: {
-          fontColor: "#DEDEDE"
-        }
-      },
-
-      scales: {
-        scaleLabel: {
-          fontColor: "#DEDEDE"
-        },
-
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ],
-
-        yAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ]
-      }
-    }
-  });
-
-  var ctx2 = document.getElementById("line_chart_hum");
-  var line_chart_hum = new Chart(ctx2, {
-    type: "line",
-    data: {
-      labels: [
-        22.02,
-        23.02,
-        24.02,
-        25.02,
-        26.02,
-        27.02,
-        28.02,
-        1.03,
-        2.03,
-        3.03
-      ],
-      datasets: [
-        {
-          label: "Humidité [%]",
-          data: [39, 42, 46, 45, 42, 43, 43, 41, 39, 43],
-          borderColor: "#b68aec",
-          fontColor: "#DEDEDE",
-          fill: false
-        }
-      ]
-    },
-
-    options: {
-      title: {
-        display: false
-      },
-
-      legend: {
-        labels: {
-          fontColor: "#DEDEDE"
-        }
-      },
-
-      scales: {
-        scaleLabel: {
-          fontColor: "#DEDEDE"
-        },
-
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ],
-
-        yAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ]
-      }
-    }
-  });
-
-  var ctx3 = document.getElementById("line_chart_press");
-  var line_chart_press = new Chart(ctx3, {
-    type: "line",
-    data: {
-      labels: [
-        22.02,
-        23.02,
-        24.02,
-        25.02,
-        26.02,
-        27.02,
-        28.02,
-        1.03,
-        2.03,
-        3.03
-      ],
-      datasets: [
-        {
-          label: "Pression [hPa]",
-          data: [
-            1014,
-            1012.8,
-            1015,
-            1014,
-            1016,
-            1015.4,
-            1013.3,
-            1018,
-            1015.4,
-            1013.3
-          ],
-          borderColor: "#ecb984",
-          fontColor: "#DEDEDE",
-          fill: false
-        }
-      ]
-    },
-
-    options: {
-      title: {
-        display: false
-      },
-
-      legend: {
-        labels: {
-          fontColor: "#DEDEDE"
-        }
-      },
-
-      scales: {
-        scaleLabel: {
-          fontColor: "#DEDEDE"
-        },
-
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ],
-
-        yAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ]
-      }
-    }
-  });
-}
-// --------------------------------------------------------------------
