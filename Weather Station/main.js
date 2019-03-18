@@ -1,7 +1,17 @@
+var Station = function() {
+  this.id = 0;
+  this.name = "";
+  this.state = false;
+  this.timer = null;
+  this.temp = 0;
+  this.hum = 0;
+  this.pres = 0;
+};
+
+var IDindex = 0;
+
 var stations = [];
 var stationNbr;
-var stationsState = Array(stationNbr).fill(false);
-var timers = Array(stationNbr).fill(null);
 
 var allURL = "http://appint01.tic.heia-fr.ch/";
 
@@ -46,17 +56,21 @@ function getWeatherStationData() {
             " are ready !"
         );
         console.log(data.stations[index]);
-        stations.push(value.location);
+        var station = new Station();
+        station.id = index;
+        stations.push(station);
+        IDindex++;
+        station.name = value.location;
+        updateDisplay(station);
       });
       stationNbr = data.stations.length;
-      stationsState = Array(stationNbr).fill(false);
-      timers = Array(stationNbr).fill(null);
       console.log("There is " + stationNbr + " stations");
 
       // en cas de succès, afficher chaque station météo en appelant la fonction updateDisplay()
-      updateDisplay();
       carouselIndicators();
       showCharts();
+      IDindex = 0;
+      console.log(stations);
     },
 
     error: function(xhr, status, error) {
@@ -72,45 +86,44 @@ function getWeatherStationData() {
 function updateDisplay(data) {
   //  4) fonction doit mettre à jour votre interface graphique pour chaque station météo existante et selon le design de votre application
   console.log("show interface");
-  console.log(stations);
-  for (var i = 0; i < stationNbr; i++) {
-    if (i === 0) {
-      $(".carousel-inner").append(
-        '<div class="carousel-item item' + i + ' active"></div>'
-      );
-    } else {
-      $(".carousel-inner").append(
-        '<div class="carousel-item item' + i + '"></div>'
-      );
-    }
-
-    $(".item" + i).append(
-      '<div class="carousel-item-container itemcontainer' + i + ' "></div>'
+  console.log(data);
+  if (data.id === 0) {
+    $(".carousel-inner").append(
+      '<div class="carousel-item item' + data.id + ' active"></div>'
     );
+  } else {
+    $(".carousel-inner").append(
+      '<div class="carousel-item item' + data.id + '"></div>'
+    );
+  }
 
-    if (stationsState[i] == false) {
-      $(".itemcontainer" + i).append(
-        '<div class="carousel-item-name" onclick="stationToggle(' +
-          stations[i] +
-          ')"  id=' +
-          stations[i] +
-          ' data-toggle="tooltip" data-placement="bottom" title="Démarrer ou arrêter la mesure">' +
-          stations[i] +
-          "</div>"
-      );
-    } else {
-      $(".itemcontainer" + i).append(
-        '<div class="carousel-item-name-selected" onclick="stationToggle(' +
-          stations[i] +
-          ')"  id=' +
-          stations[i] +
-          ' data-toggle="tooltip" data-placement="bottom" title="Démarrer ou arrêter la mesure">' +
-          stations[i] +
-          "</div>"
-      );
-    }
-    $(".itemcontainer" + i).append(
-      ' <div class="text-center">\
+  $(".item" + data.id).append(
+    '<div class="carousel-item-container itemcontainer' + data.id + ' "></div>'
+  );
+
+  if (data.state == false) {
+    $(".itemcontainer" + data.id).append(
+      '<div class="carousel-item-name" onclick="stationToggle(' +
+        data.id +
+        ')"  id=' +
+        data.id +
+        ' data-toggle="tooltip" data-placement="bottom" title="Démarrer ou arrêter la mesure">' +
+        data.name +
+        "</div>"
+    );
+  } else {
+    $(".itemcontainer" + data.id).append(
+      '<div class="carousel-item-name-selected" onclick="stationToggle(' +
+        data.id +
+        ')"  id=' +
+        data.id +
+        ' data-toggle="tooltip" data-placement="bottom" title="Démarrer ou arrêter la mesure">' +
+        data.name +
+        "</div>"
+    );
+  }
+  $(".itemcontainer" + data.id).append(
+    ' <div class="text-center">\
         <button\
           class="button"\
           type="button"\
@@ -143,45 +156,45 @@ function updateDisplay(data) {
         <canvas id="line_chart_press"></canvas>\
       </div>\
     </div>'
-    );
-  }
+  );
+  //}
 }
 // --------------------------------------------------------------------
 
 // 6 ) Création d’un appel temporisé pour la mise à jour des valeurs de la station météo
 function stationToggle(name) {
   for (var i = 0; i < stationNbr; i++) {
-    if (name.id == stations[i]) {
-      if (stationsState[i] == false) {
+    if (name == stations[i].id) {
+      if (stations[i].state == false) {
         // start timer
-        stationsState[i] = true;
+        stations[i].state = true;
         document
-          .getElementById(stations[i])
+          .getElementById(stations[i].id)
           .classList.remove("carousel-item-name");
         document
-          .getElementById(stations[i])
+          .getElementById(stations[i].id)
           .classList.add("carousel-item-name-selected");
         // call to start loop
-        timers[i] = setInterval(function() {
+        stations[i].timer = setInterval(function() {
           // TIMER STARTER, CALL UPDATE GRAPHS FUNCTION HERE
           console.log("tick");
         }, delay);
       } else {
         // stop timer
-        stationsState[i] = false;
+        stations[i].state = false;
         document
-          .getElementById(stations[i])
+          .getElementById(stations[i].id)
           .classList.remove("carousel-item-name-selected");
         document
-          .getElementById(stations[i])
+          .getElementById(stations[i].id)
           .classList.add("carousel-item-name");
         // call to top loop
-        clearInterval(timers[i]);
-        timers[i] = null;
+        clearInterval(stations[i].timer);
+        stations[i].timer = null;
         // TIMER STOPPED
         console.log("STOP");
       }
-      console.log(stations[i] + " : " + stationsState[i]);
+      console.log(stations[i].name + " : " + stations[i].state);
     }
   }
 }
