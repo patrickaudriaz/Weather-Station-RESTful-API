@@ -170,8 +170,7 @@ function updateWeatherStationData(index) {
   var humiChart;
   var presChart;
 
-  temp = stations[index];
-  console.log(temp);
+
 
   console.log("GET from " + stations[index].name);
   $.ajax({
@@ -184,9 +183,6 @@ function updateWeatherStationData(index) {
 
     success: function (data) {
       console.log(data);
-      temp.hum = data.sensors.humidity.current_condition;
-      temp.temp = data.sensors.temperature.current_condition;
-      temp.pres = data.sensors.pressure.current_condition;
 
       var date = new Date($.now());
       var label = date.getHours()+":"+date.getMinutes();
@@ -196,17 +192,52 @@ function updateWeatherStationData(index) {
           type: 'line',
           data: {
             labels: [label],
-            datasets: [{ data: [ data.sensors.temperature.current_condition.value ] }]
+            datasets: [{
+              label: data.sensors.temperature.name,
+              data: [ data.sensors.temperature.current_condition.value ],
+              borderColor: "#b68aec",
+              fontColor: "#DEDEDE",
+              fill: false}]
           },
           options: {
+            title: {
+              display: false
+            },
             legend: {
-              display: false,
+              labels: {
+                fontColor: "#DEDEDE"
+              }
+            },
+            scales: {
+              scaleLabel: {
+                fontColor: "#DEDEDE"
+              },
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false,
+                    color: "#DEDEDE",
+                    lineWidth: 2
+                  }
+                }
+              ],
+
+              yAxes: [
+                {
+                  gridLines: {
+                    display: false,
+                    color: "#DEDEDE",
+                    lineWidth: 2
+                  }
+                }
+              ]
             }
           }
         });
       } else {
-        addDataToChart(line_chart_temp, label, data.sensors.temperature.current_condition.value);
+        addDataToChart(line_chart_temp, data.sensors.temperature.current_condition.value);
       }
+      temp = data;
       console.log(temp);
     },
 
@@ -219,8 +250,23 @@ function updateWeatherStationData(index) {
   });
   //stations[index] = createChart(stations[index],updateCount);
   console.log(stations[index]);
+  console.log(temp);
+
+  if(data.actuators.state.value) {
+    setTimeout(ajax, refreshTime);
+  };
+
+  ajax();
+
 };
 
+function addDataToChart(chart,data) {
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.push(data);
+  });
+
+  chart.update();
+}
 // --------------------------------------------------------------------
 
 // Auto-generate carousel indicator html
@@ -260,6 +306,7 @@ function stationToggle(name) {
       if (stations[i].state == false) {
         // start timer
         stations[i].state = true;
+        switchWeatherStationState(stations[i].state, stations[i]);
         document
             .getElementById(stations[i].id)
             .classList.remove("carousel-item-name");
@@ -270,7 +317,6 @@ function stationToggle(name) {
         stations[i].timer = setInterval(function() {
           // TIMER STARTER, CALL UPDATE GRAPHS FUNCTION HERE
           console.log("tick");
-          updateWeatherStationData(i);
         }, delay);
       } else {
         // stop timer
@@ -294,8 +340,29 @@ function stationToggle(name) {
 // --------------------------------------------------------------------
 
 // 7) Création d’une fonction permettant de modifier l’état de la station météo
-function switchWeatherStationState(state, device) {
-  // TODO
+function switchWeatherStationState(state, station) {
+  $.ajax({
+    url: station.url + '/actuators/state',
+    method: 'PUT',
+    accepts: 'application/json',
+    contentType: 'application/json',
+    data: JSON.stringify(
+        {
+          name: 'Station state',
+          value: state
+        }
+    ),
+    success: function(data) {
+      if(state) {
+        updateWeatherStationData(station);
+      }
+    },
+    error: function(e) {
+      $('.alert-text').html('Erreur: impossible de changer le statut de la station '+device.location);
+      $('.alert').addClass('alert-danger').removeClass('d-none');
+      console.log(e);
+    }
+  });
 }
 // --------------------------------------------------------------------
 
