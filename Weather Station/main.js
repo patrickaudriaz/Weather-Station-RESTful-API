@@ -7,6 +7,7 @@ var Station = function() {
   this.hum = [];
   this.pres = [];
   this.url = "";
+  this.chart = [];
 };
 
 var IDindex = 0;
@@ -20,27 +21,6 @@ var delay = 2000;
 var displayNbr = 10;
 var updateCount = 0;
 
-var commonOptions = {
-  scales: {
-    xAxes: [{
-      type: 'time',
-      time: {
-        displayFormats: {
-          millisecond: 'mm:ss:SSS'
-        }
-      }
-    }],
-    yAxes: [{
-      ticks: {
-        beginAtZero:true
-      }
-    }]
-  },
-  legend: {display: false},
-  tooltips:{
-    enabled: false
-  }
-};
 // --------------------------------------------------------------------
 
 // 2) Ecrire la fonction $(document).ready()
@@ -49,264 +29,6 @@ $(document).ready(function() {
 
   console.log("Document is ready !");
 });
-// --------------------------------------------------------------------
-
-// 5 ) Création d’une fonction permettant de mettre à jour les données d’une station météo
-function updateWeatherStationData(index) {
-  var temp = new Station();
-
-  temp = stations[index];
-  console.log(temp);
-
-  console.log("GET from " + stations[index].name);
-  $.ajax({
-    method: "GET",
-    url: stations[index].url,
-    headers: {
-      Accept: "application/json"
-      //"Content-type" : "application/json"
-    },
-
-    success: function (data) {
-      console.log(data);
-      temp.hum = data.sensors.humidity.current_condition;
-      temp.temp = data.sensors.temperature.current_condition;
-      temp.pres = data.sensors.pressure.current_condition;
-      console.log(temp);
-    },
-
-
-    error: function (xhr, status, error) {
-      alert("error");
-      console.log("xhr: " + xhr);
-      console.log("status: " + status);
-      console.log("error: " + error);
-    },
-  });
-
-  console.log(stations);
-
-  var ctx = document.getElementById("line_chart_temp");
-  var line_chart_temp = new Chart(ctx, {
-    type: "line",
-    data: {
-      datasets: [
-        {
-          label: "Temperature [˚C]",
-          data: 0,
-          borderColor: "#8BC6EC",
-          fontColor: "#DEDEDE",
-          fill: false
-        }
-      ]
-    },
-
-    options: Object.assign({}, commonOptions, {
-        title:{
-          display: false,
-          text: "Acceleration - X",
-          fontSize: 18
-        },
-
-      legend: {
-        labels: {
-          fontColor: "#DEDEDE"
-        }
-      },
-
-      scales: {
-        scaleLabel: {
-          fontColor: "#DEDEDE"
-        },
-
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ],
-
-        yAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ]
-      }
-    })
-  });
-
-  /*
-  var ctx2 = document.getElementById("line_chart_hum");
-  var line_chart_hum = new Chart(ctx2, {
-    type: "line",
-    data: {
-      labels: [
-        22.02,
-        23.02,
-        24.02,
-        25.02,
-        26.02,
-        27.02,
-        28.02,
-        1.03,
-        2.03,
-        3.03
-      ],
-      datasets: [
-        {
-          label: "Humidité [%]",
-          data: [39, 42, 46, 45, 42, 43, 43, 41, 39, 43],
-          borderColor: "#b68aec",
-          fontColor: "#DEDEDE",
-          fill: false
-        }
-      ]
-    },
-
-    options: {
-      title: {
-        display: false
-      },
-
-      legend: {
-        labels: {
-          fontColor: "#DEDEDE"
-        }
-      },
-
-      scales: {
-        scaleLabel: {
-          fontColor: "#DEDEDE"
-        },
-
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ],
-
-        yAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ]
-      }
-    }
-  });
-
-  var ctx3 = document.getElementById("line_chart_press");
-  var line_chart_press = new Chart(ctx3, {
-    type: "line",
-    data: {
-      labels: [
-        22.02,
-        23.02,
-        24.02,
-        25.02,
-        26.02,
-        27.02,
-        28.02,
-        1.03,
-        2.03,
-        3.03
-      ],
-      datasets: [
-        {
-          label: "Pression [hPa]",
-          data: [
-            1014,
-            1012.8,
-            1015,
-            1014,
-            1016,
-            1015.4,
-            1013.3,
-            1018,
-            1015.4,
-            1013.3
-          ],
-          borderColor: "#ecb984",
-          fontColor: "#DEDEDE",
-          fill: false
-        }
-      ]
-    },
-
-    options: {
-      title: {
-        display: false
-      },
-
-      legend: {
-        labels: {
-          fontColor: "#DEDEDE"
-        }
-      },
-
-      scales: {
-        scaleLabel: {
-          fontColor: "#DEDEDE"
-        },
-
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ],
-
-        yAxes: [
-          {
-            gridLines: {
-              display: false,
-              color: "#DEDEDE",
-              lineWidth: 2
-            }
-          }
-        ]
-      }
-    }
-  });
-  */
-
-  //updateChart(stations[index]);
-
-
-
-    line_chart_temp.data.labels.push(new Date());
-    line_chart_temp.data.datasets.forEach((dataset) =>{dataset.data.push(stations[index].temp.value)});
-    if(updateCount > displayNbr) {
-      line_chart_temp.data.labels.shift();
-      line_chart_temp.data.datasets[0].data.shift();
-    }
-    updateCount++;
-};
-
-// --------------------------------------------------------------------
-
-
-// 7) Création d’une fonction permettant de modifier l’état de la station météo
-function switchWeatherStationState(state, device) {
-  // TODO
-}
 // --------------------------------------------------------------------
 
 // 3) requête HTTP Ajax asynchrone (méthode : GET) afin d’obtenir l’état complet de toutes les stations météo.
@@ -333,7 +55,6 @@ function getWeatherStationData() {
         stations.push(station);
         IDindex++;
         station.name = value.location;
-        updateDisplay(station);
       });
       stationNbr = data.stations.length;
       console.log("There is " + stationNbr + " stations");
@@ -343,6 +64,7 @@ function getWeatherStationData() {
       carouselIndicators();
 
       for (var i = 0; i < stationNbr; i++) {
+        updateDisplay(stations[i]);
         updateWeatherStationData(i);
       }
       IDindex = 0;
@@ -436,43 +158,69 @@ function updateDisplay(data) {
 }
 // --------------------------------------------------------------------
 
-// 6 ) Création d’un appel temporisé pour la mise à jour des valeurs de la station météo
-function stationToggle(name) {
-  for (var i = 0; i < stationNbr; i++) {
-    if (name == stations[i].id) {
-      if (stations[i].state == false) {
-        // start timer
-        stations[i].state = true;
-        document
-          .getElementById(stations[i].id)
-          .classList.remove("carousel-item-name");
-        document
-          .getElementById(stations[i].id)
-          .classList.add("carousel-item-name-selected");
-        // call to start loop
-        stations[i].timer = setInterval(function() {
-          // TIMER STARTER, CALL UPDATE GRAPHS FUNCTION HERE
-          console.log("tick");
-        }, delay);
+
+// 5 ) Création d’une fonction permettant de mettre à jour les données d’une station météo
+function updateWeatherStationData(index) {
+
+  var temp = new Station();
+  var ctxTemp = document.getElementById("line_chart_temp");
+  var ctxHum = document.getElementById("line_chart_hum");
+  var ctxPress = document.getElementById("line_chart_press");
+  var line_chart_temp;
+  var humiChart;
+  var presChart;
+
+  temp = stations[index];
+  console.log(temp);
+
+  console.log("GET from " + stations[index].name);
+  $.ajax({
+    method: "GET",
+    url: stations[index].url,
+    headers: {
+      Accept: "application/json"
+      //"Content-type" : "application/json"
+    },
+
+    success: function (data) {
+      console.log(data);
+      temp.hum = data.sensors.humidity.current_condition;
+      temp.temp = data.sensors.temperature.current_condition;
+      temp.pres = data.sensors.pressure.current_condition;
+
+      var date = new Date($.now());
+      var label = date.getHours()+":"+date.getMinutes();
+
+      if(line_chart_temp == null) {
+        line_chart_temp = new Chart(ctxTemp, {
+          type: 'line',
+          data: {
+            labels: [label],
+            datasets: [{ data: [ data.sensors.temperature.current_condition.value ] }]
+          },
+          options: {
+            legend: {
+              display: false,
+            }
+          }
+        });
       } else {
-        // stop timer
-        stations[i].state = false;
-        document
-          .getElementById(stations[i].id)
-          .classList.remove("carousel-item-name-selected");
-        document
-          .getElementById(stations[i].id)
-          .classList.add("carousel-item-name");
-        // call to top loop
-        clearInterval(stations[i].timer);
-        stations[i].timer = null;
-        // TIMER STOPPED
-        console.log("STOP");
+        addDataToChart(line_chart_temp, label, data.sensors.temperature.current_condition.value);
       }
-      console.log(stations[i].name + " : " + stations[i].state);
-    }
-  }
-}
+      console.log(temp);
+    },
+
+    error: function (xhr, status, error) {
+      alert("error");
+      console.log("xhr: " + xhr);
+      console.log("status: " + status);
+      console.log("error: " + error);
+    },
+  });
+  //stations[index] = createChart(stations[index],updateCount);
+  console.log(stations[index]);
+};
+
 // --------------------------------------------------------------------
 
 // Auto-generate carousel indicator html
@@ -502,3 +250,52 @@ function carouselIndicators() {
 $(function() {
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+// --------------------------------------------------------------------
+
+// 6 ) Création d’un appel temporisé pour la mise à jour des valeurs de la station météo
+function stationToggle(name) {
+  for (var i = 0; i < stationNbr; i++) {
+    if (name == stations[i].id) {
+      if (stations[i].state == false) {
+        // start timer
+        stations[i].state = true;
+        document
+            .getElementById(stations[i].id)
+            .classList.remove("carousel-item-name");
+        document
+            .getElementById(stations[i].id)
+            .classList.add("carousel-item-name-selected");
+        // call to start loop
+        stations[i].timer = setInterval(function() {
+          // TIMER STARTER, CALL UPDATE GRAPHS FUNCTION HERE
+          console.log("tick");
+          updateWeatherStationData(i);
+        }, delay);
+      } else {
+        // stop timer
+        stations[i].state = false;
+        document
+            .getElementById(stations[i].id)
+            .classList.remove("carousel-item-name-selected");
+        document
+            .getElementById(stations[i].id)
+            .classList.add("carousel-item-name");
+        // call to top loop
+        clearInterval(stations[i].timer);
+        stations[i].timer = null;
+        // TIMER STOPPED
+        console.log("STOP");
+      }
+      console.log(stations[i].name + " : " + stations[i].state);
+    }
+  }
+}
+// --------------------------------------------------------------------
+
+// 7) Création d’une fonction permettant de modifier l’état de la station météo
+function switchWeatherStationState(state, device) {
+  // TODO
+}
+// --------------------------------------------------------------------
+
