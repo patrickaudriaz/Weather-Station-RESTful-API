@@ -28,7 +28,6 @@ var updateCount = 0;
 // 2) Ecrire la fonction $(document).ready()
 $(document).ready(function() {
   getWeatherStationData();
-
   console.log("Document is ready !");
 });
 // --------------------------------------------------------------------
@@ -168,11 +167,10 @@ function updateWeatherStationData(station) {
   var ctxHum = document.getElementById("line_chart_hum");
   var ctxPress = document.getElementById("line_chart_press");
   var line_chart_temp;
-  var humiChart;
-  var presChart;
+  var line_chart_hum;
+  var line_chart_press;
 
-
-
+  console.log(station);
   console.log("GET from " + station.name);
   var ajaxfct = function() {
                       $.ajax({
@@ -236,8 +234,11 @@ function updateWeatherStationData(station) {
                                 }
                               }
                             });
+                            station.temp = line_chart_temp;
+                          } else if (data.actuators.state.value == true) {
+                            addDataToChart(line_chart_temp,label, data.sensors.temperature.current_condition.value);
                           } else {
-                            addDataToChart(line_chart_temp,label,  data.sensors.temperature.current_condition.value);
+                            station.temp = [];
                           };
                         },
 
@@ -249,7 +250,7 @@ function updateWeatherStationData(station) {
                         },
                       }); }
   console.log(stations);
-  console.log(station);
+  console.log(station.state);
 
   if(station.state  == true) {
     setInterval(ajaxfct, delay);
