@@ -10,6 +10,8 @@ var Station = function() {
   this.chart = [];
 };
 
+var temp = [];
+
 var IDindex = 0;
 
 var stations = [];
@@ -17,7 +19,7 @@ var stationNbr;
 
 var allURL = "http://appint01.tic.heia-fr.ch/";
 
-var delay = 2000;
+var delay = 6000;
 var displayNbr = 10;
 var updateCount = 0;
 
@@ -65,7 +67,7 @@ function getWeatherStationData() {
 
       for (var i = 0; i < stationNbr; i++) {
         updateDisplay(stations[i]);
-        updateWeatherStationData(i);
+        updateWeatherStationData(stations[i]);
       }
       IDindex = 0;
     },
@@ -160,9 +162,8 @@ function updateDisplay(data) {
 
 
 // 5 ) Création d’une fonction permettant de mettre à jour les données d’une station météo
-function updateWeatherStationData(index) {
+function updateWeatherStationData(station) {
 
-  var temp = new Station();
   var ctxTemp = document.getElementById("line_chart_temp");
   var ctxHum = document.getElementById("line_chart_hum");
   var ctxPress = document.getElementById("line_chart_press");
@@ -172,99 +173,97 @@ function updateWeatherStationData(index) {
 
 
 
-  console.log("GET from " + stations[index].name);
-  $.ajax({
-    method: "GET",
-    url: stations[index].url,
-    headers: {
-      Accept: "application/json"
-      //"Content-type" : "application/json"
-    },
+  console.log("GET from " + station.name);
+  var ajaxfct = function() {
+                      $.ajax({
+                        method: "GET",
+                        url: station.url,
+                        headers: {
+                          Accept: "application/json"
+                          //"Content-type" : "application/json"
+                        },
 
-    success: function (data) {
-      console.log(data);
+                        success: function (data) {
+                          console.log(data);
 
-      var date = new Date($.now());
-      var label = date.getHours()+":"+date.getMinutes();
+                          var date = new Date($.now());
+                          var label = date.getHours()+":"+date.getMinutes();
 
-      if(line_chart_temp == null) {
-        line_chart_temp = new Chart(ctxTemp, {
-          type: 'line',
-          data: {
-            labels: [label],
-            datasets: [{
-              label: data.sensors.temperature.name,
-              data: [ data.sensors.temperature.current_condition.value ],
-              borderColor: "#b68aec",
-              fontColor: "#DEDEDE",
-              fill: false}]
-          },
-          options: {
-            title: {
-              display: false
-            },
-            legend: {
-              labels: {
-                fontColor: "#DEDEDE"
-              }
-            },
-            scales: {
-              scaleLabel: {
-                fontColor: "#DEDEDE"
-              },
-              xAxes: [
-                {
-                  gridLines: {
-                    display: false,
-                    color: "#DEDEDE",
-                    lineWidth: 2
-                  }
-                }
-              ],
+                          if(line_chart_temp == null) {
+                            line_chart_temp = new Chart(ctxTemp, {
+                              type: 'line',
+                              data: {
+                                labels: [label],
+                                datasets: [{
+                                  label: data.sensors.temperature.name,
+                                  data: [ data.sensors.temperature.current_condition.value ],
+                                  borderColor: "#b68aec",
+                                  fontColor: "#DEDEDE",
+                                  fill: false}]
+                              },
+                              options: {
+                                title: {
+                                  display: false
+                                },
+                                legend: {
+                                  labels: {
+                                    fontColor: "#DEDEDE"
+                                  }
+                                },
+                                scales: {
+                                  scaleLabel: {
+                                    fontColor: "#DEDEDE"
+                                  },
+                                  xAxes: [
+                                    {
+                                      gridLines: {
+                                        display: false,
+                                        color: "#DEDEDE",
+                                        lineWidth: 2
+                                      }
+                                    }
+                                  ],
 
-              yAxes: [
-                {
-                  gridLines: {
-                    display: false,
-                    color: "#DEDEDE",
-                    lineWidth: 2
-                  }
-                }
-              ]
-            }
-          }
-        });
-      } else {
-        addDataToChart(line_chart_temp, data.sensors.temperature.current_condition.value);
-      }
-      temp = data;
-      console.log(temp);
-    },
+                                  yAxes: [
+                                    {
+                                      gridLines: {
+                                        display: false,
+                                        color: "#DEDEDE",
+                                        lineWidth: 2
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            });
+                          } else {
+                            addDataToChart(line_chart_temp,label,  data.sensors.temperature.current_condition.value);
+                          };
+                        },
 
-    error: function (xhr, status, error) {
-      alert("error");
-      console.log("xhr: " + xhr);
-      console.log("status: " + status);
-      console.log("error: " + error);
-    },
-  });
-  //stations[index] = createChart(stations[index],updateCount);
-  console.log(stations[index]);
-  console.log(temp);
+                        error: function (xhr, status, error) {
+                          alert("error");
+                          console.log("xhr: " + xhr);
+                          console.log("status: " + status);
+                          console.log("error: " + error);
+                        },
+                      }); }
+  console.log(stations);
+  console.log(station);
 
-  if(data.actuators.state.value) {
-    setTimeout(ajax, refreshTime);
+  if(station.state  == true) {
+    setInterval(ajaxfct, delay);
   };
 
-  ajax();
+  ajaxfct();
 
 };
 
-function addDataToChart(chart,data) {
+function addDataToChart(chart,label,data) {
+  chart.data.labels.push(label);
   chart.data.datasets.forEach((dataset) => {
     dataset.data.push(data);
   });
-
   chart.update();
 }
 // --------------------------------------------------------------------
@@ -321,6 +320,7 @@ function stationToggle(name) {
       } else {
         // stop timer
         stations[i].state = false;
+        switchWeatherStationState(stations[i].state, stations[i]);
         document
             .getElementById(stations[i].id)
             .classList.remove("carousel-item-name-selected");
@@ -353,7 +353,10 @@ function switchWeatherStationState(state, station) {
         }
     ),
     success: function(data) {
+      console.log(data);
+      console.log(station);
       if(state) {
+        console.log("Updating station data");
         updateWeatherStationData(station);
       }
     },
