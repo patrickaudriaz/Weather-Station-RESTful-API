@@ -1,29 +1,24 @@
+//Station object
 var Station = function() {
   this.id = 0;
   this.name = "";
   this.state = false;
-  this.timer = null;
-  this.temp = [];
-  this.hum = [];
-  this.pres = [];
   this.url = "";
-  this.chart = [];
   this.longitude = 0;
-  this.ltaitude = 0;
+  this.latitude = 0;
 };
 
-// idenx stations
 var IDindex = 0;
-
 var stations = [];
 var stationNbr;
 
+//Main Url for the first request
 var allURL = "http://appint01.tic.heia-fr.ch/";
+
 
 var delay = 5000;
 var displayNbr = 20;
 var updateCount = 0;
-
 var graphState;
 
 // --------------------------------------------------------------------
@@ -46,7 +41,9 @@ function getWeatherStationData() {
       //"Content-type" : "application/json"
     },
 
+    //In case of succes
     success: function(data) {
+      //Adding data from each station
       $.each(data.stations, function(index, value) {
         console.log(
           "Datas from stations located at " +
@@ -83,11 +80,11 @@ function getWeatherStationData() {
     }
   });
 }
-
 // --------------------------------------------------------------------
 
+//  4) fonction doit mettre à jour votre interface graphique pour chaque station météo existante et selon le design de votre application
+// Generate the template for each station
 function updateDisplay(data) {
-  //  4) fonction doit mettre à jour votre interface graphique pour chaque station météo existante et selon le design de votre application
   console.log("show interface");
   console.log(data);
   if (data.id === 0) {
@@ -104,6 +101,7 @@ function updateDisplay(data) {
     '<div class="carousel-item-container itemcontainer' + data.id + ' "></div>'
   );
 
+  //Check if the state is true if so adding the grap
   if (data.state == false) {
     $(".itemcontainer" + data.id).append(
       '<div class="carousel-item-name" onclick="stationToggle(' +
@@ -205,12 +203,14 @@ function updateWeatherStationData(station) {
         //"Content-type" : "application/json"
       },
 
+      //In case of success generate the chart ctx from the data
       success: function(data) {
         console.log(data);
 
         var date = new Date($.now());
         var label = date.getHours() + ":" + date.getMinutes();
 
+        //Check if the chart already exist if so updating the datasets if not create a new one
         if (line_chart_temp == null) {
           line_chart_temp = new Chart(ctxTemp, {
             type: "line",
@@ -418,18 +418,21 @@ function updateWeatherStationData(station) {
   console.log(stations);
   console.log(station.state);
 
+  //Calling back the ajax request for an update after the delay
   if (station.state == true) {
     graphState = setInterval(ajaxfct, delay);
   }
   //ajaxfct();
 }
 
+//Manage how tu add new data on the chart
 function addDataToChart(chart, label, data) {
   chart.data.labels.push(label);
   chart.data.datasets.forEach(dataset => {
     dataset.data.push(data);
   });
 
+  //block the number of value displayed on screen
   if (updateCount > displayNbr) {
     chart.data.labels.shift();
     chart.data.datasets[0].data.shift();
