@@ -8,8 +8,11 @@ var Station = function() {
   this.pres = [];
   this.url = "";
   this.chart = [];
+  this.longitude = 0;
+  this.ltaitude = 0;
 };
 
+// idenx stations
 var IDindex = 0;
 
 var stations = [];
@@ -17,7 +20,7 @@ var stationNbr;
 
 var allURL = "http://appint01.tic.heia-fr.ch/";
 
-var delay = 500;
+var delay = 5000;
 var displayNbr = 20;
 var updateCount = 0;
 
@@ -27,6 +30,7 @@ var graphState;
 
 // 2) Ecrire la fonction $(document).ready()
 $(document).ready(function() {
+  // call API
   getWeatherStationData();
   console.log("Document is ready !");
 });
@@ -53,10 +57,12 @@ function getWeatherStationData() {
         var station = new Station();
         station.id = IDindex;
         station.url = value.url;
-        stations.push(station);
-        IDindex++;
+        station.latitude = value.latitude;
+        station.longitude = value.longitude;
         station.name = value.location;
+        stations.push(station);
         updateDisplay(station);
+        IDindex++;
         updateWeatherStationData(station);
       });
       stationNbr = data.stations.length;
@@ -140,6 +146,20 @@ function updateDisplay(data) {
             </button>\
             <div class="collapse" id="map">\
               <div class="card card-body">\
+              <iframe\
+                width="400"\
+                height="300"\
+                frameborder="0"\
+                scrolling="no"\
+                marginheight="0"\
+                marginwidth="0"\
+                src="https://maps.google.com/maps?q=' +
+      data.latitude +
+      "," +
+      data.longitude +
+      '&hl=es;z=14&amp;output=embed"\
+                >\
+              </iframe>\
               </div>\
             </div>\
           </div>\
@@ -400,7 +420,6 @@ function updateWeatherStationData(station) {
 
   if (station.state == true) {
     graphState = setInterval(ajaxfct, delay);
-    console.log("YAAAAAAAAAAAAAAAAAASSSSSSSSSSSSS");
   }
   //ajaxfct();
 }
