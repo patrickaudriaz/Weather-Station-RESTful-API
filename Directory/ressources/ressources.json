@@ -1,0 +1,30 @@
+{
+  "directory": {
+
+    "port":8585,
+
+    "stations": [
+      {
+        "name": "Weather station located in Posieux",
+        "location": "Posieux",
+        "latitude": "46.7743329",
+        "longitude": "7.1114408",
+        "url": "http://appint02.tic.heia-fr.ch"
+      },
+      {
+        "name": "Weather station located in Moléson-Village",
+        "location": "Moléson-Village",
+        "latitude": "46.5650200",
+        "longitude": "7.0382000",
+        "url": "http://appint03.tic.heia-fr.ch"
+      },
+      {
+        "name": "Weather station located in Zermatt",
+        "location": "Zermatt",
+        "latitude": "46.0220560",
+        "longitude": "7.7504690",
+        "url": "http://appint04.tic.heia-fr.ch"
+      }
+    ]
+  }
+}
