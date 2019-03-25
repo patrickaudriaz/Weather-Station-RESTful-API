@@ -1,0 +1,43 @@
+{
+  "port":8586,
+  
+  "sensors": {
+      "temperature": {
+          "name": "Current temperature",
+          "description": "Ambient temperature measured at floor level.",
+          "unit": "celsius",
+          "current_condition": {
+              "value": 3.31,
+              "date": "25.2.2019",
+              "time": "14:31:49"
+          }
+      },
+      "humidity": {
+          "name": "Current humidity",
+          "description": "Ambient humidity measured at floor level.",
+          "unit": "%",
+          "current_condition": {
+              "value": 78.03,
+              "date": "25.2.2019",
+              "time": "14:31:49"
+          }
+      },
+      "pressure": {
+          "name": "Current pressure",
+          "description": "Atmospheric pressure measured at floor level.",
+          "unit": "hPa",
+          "current_condition": {
+              "value": 1023.9399999999999,
+              "date": "25.2.2019",
+              "time": "14:31:49"
+          }
+      }
+  },
+  "actuators": {
+      "state": {
+          "name": "Station state",
+          "description": "State specifying whether measurements are running.",
+          "value": true
+      }
+  }
+}
