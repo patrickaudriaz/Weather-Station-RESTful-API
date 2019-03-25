@@ -1,0 +1,14 @@
+{
+  "name": "directory",
+  "version": "1.0.0",
+  "description": "Développement d’un service RESTful en utilisant Node.js",
+  "main": "directory-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tschopp, Audriaz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
