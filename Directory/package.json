@@ -12,5 +12,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "node-json2html": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3"
   }
 }
