@@ -1,6 +1,7 @@
-const express = require("express");
+const express = require("express"),
+  ressources = require("../ressources/model"),
+  converter = require("../middleware/converter");
 const app = express();
-var converter = require("../middleware/converter");
 const port = 3000;
 
 app.all("/", function(req, res, next) {
