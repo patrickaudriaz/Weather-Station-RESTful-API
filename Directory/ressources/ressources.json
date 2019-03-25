@@ -1,5 +1,5 @@
 {
-  "directory": [{
+  "directory": {
 
     "port":8585,
 
@@ -26,5 +26,5 @@
         "url": "http://appint04.tic.heia-fr.ch"
       }
     ]
-  }]
+  }
 }
