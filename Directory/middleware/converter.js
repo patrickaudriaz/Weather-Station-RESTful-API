@@ -11,17 +11,6 @@ module.exports = function() {
       // Read the request header and check if the client requested HTML
       var check = req.accepts("text/html");
 
-      if (req.accepts("text/html")) {
-        // If HTML was requested, use json2html to transform the JSON into simple HTML
-        console.info("HTML representation selected!");
-        var transform = {
-          tag: "div",
-          html: "<h1> ${name} </h1> Location: ${location} <br> URL: ${url} "
-        };
-        res.send(json2html.transform(req.result.stations, transform)); //#E
-        return;
-      }
-
       if (req.accepts("json")) {
         console.info("JSON representation selected!");
         res.send(req.result);

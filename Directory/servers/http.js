@@ -2,7 +2,6 @@ const express = require("express"),
   ressources = require("../ressources/model"),
   converter = require("../middleware/converter");
 const app = express();
-const port = 3000;
 
 app.all("/", function(req, res, next) {
   res.status(403);
@@ -11,20 +10,24 @@ app.all("/", function(req, res, next) {
 });
 
 app.get("/", function(req, res, next) {
-  res.send("Hello World!");
   res.status(200);
+  res.setHeader('Content-Type', 'application/json', 'Accept: application/json');
   req.result = ressources.directory;
   console.log("--> GET request");
   next();
 });
 
+/*
 app.post("/", function(req, res, next) {
+  res.status(200);
   console.log("--> Got a POST request");
   next();
 });
+*/
 
-app.listen(port, function() {
-  console.log("--> Example app listening on port : " + port);
+
+app.listen(ressources.port, function() {
+  console.log("--> App listening on port : " + ressources.port);
 });
 
 app.use(converter());
