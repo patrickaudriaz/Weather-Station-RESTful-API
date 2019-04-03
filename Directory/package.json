@@ -10,6 +10,7 @@
   "author": "Tschopp, Audriaz",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "node-json2html": "^1.2.0"
   },

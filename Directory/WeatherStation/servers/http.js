@@ -1,20 +1,16 @@
 const express = require("express"),
   ressources = require("../resources/model"),
   actuators = require("../routes/actuators"),
-    sensors = require("../routes/sensors");
+  sensors = require("../routes/sensors"),
+  converter = require("../middleware/converter"),
+  parser = require("body-parser");
 
 const app = express();
 
-app.use('/actuators', actuators);
-app.use('/sensors', sensors);
+app.use(parser.json());
 
-/*
-app.all("/", function(req, res, next) {
-  res.status(403);
-  req.result = "Not allowed on /";
-  next();
-});
- */
+app.use("/actuators", actuators);
+app.use("/sensors", sensors);
 
 app.get("/", function(req, res, next) {
   res.status(200);
@@ -24,6 +20,5 @@ app.get("/", function(req, res, next) {
   next();
 });
 
-
-//openweather.start();
+app.use(converter());
 module.exports = app;
