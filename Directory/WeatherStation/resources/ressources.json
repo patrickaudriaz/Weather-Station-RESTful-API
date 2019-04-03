@@ -1,6 +1,4 @@
 {
-  "port":8586,
-  
   "sensors": {
       "temperature": {
           "name": "Current temperature",

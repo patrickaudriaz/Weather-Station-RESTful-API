@@ -1,7 +1,17 @@
 var http = require("./servers/http"),
-  ressources = require("./resources/model");
+  ressources = require("./resources/model"),
+    openweather = require("./plugins/openweather-forecast.js");
 
-http.listen(ressources.port, function() {
+var port = process.argv[2];
+console.log("port : " + port);
+
+var location = process.argv[3];
+console.log("location : " + location);
+
+http.listen(port, function() {
   console.log("Server started...");
-  console.log("Running on port : " + ressources.port);
+  console.log("Running on port : " + port);
 });
+
+openweather.start({"frequency":10000, "location":location});
+
