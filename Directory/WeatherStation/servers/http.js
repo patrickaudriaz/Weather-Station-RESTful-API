@@ -1,11 +1,11 @@
-const express = require("express"),
+var express = require("express"),
   ressources = require("../resources/model"),
   actuators = require("../routes/actuators"),
   sensors = require("../routes/sensors"),
   converter = require("../middleware/converter"),
   parser = require("body-parser");
 
-const app = express();
+var app = express();
 
 app.use(parser.json());
 

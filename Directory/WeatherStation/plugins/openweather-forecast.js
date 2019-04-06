@@ -1,7 +1,7 @@
-const resources = require("./../resources/model"),
+var resources = require("./../resources/model"),
     utils = require("./../utils/utils");
 
-let localParams = {frequency: 5000, location: "Paris"};
+var localParams = {frequency: 5000, location: "Paris"};
 
 var http = require("http");
 var timeOutVar;

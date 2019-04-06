@@ -1,5 +1,5 @@
 //Station object
-const Station = function () {
+let Station = function () {
   this.id = 0;
   this.name = "";
   this.state = false;
@@ -266,7 +266,7 @@ function updateWeatherStationData(station) {
             }
           });
           station.temp = line_chart_temp;
-        } else if (data.actuators.state.value == true) {
+        } else if (data.actuators.state.value === true) {
           addDataToChart(
               line_chart_temp,
               label,

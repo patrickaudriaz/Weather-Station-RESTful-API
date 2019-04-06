@@ -1,2 +1,2 @@
-const ressources = require("./ressources.json");
+var ressources = require("./ressources.json");
 module.exports = ressources;

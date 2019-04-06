@@ -1,7 +1,7 @@
-const express = require("express"),
+var express = require("express"),
   ressources = require("../ressources/model"),
   converter = require("../middleware/converter");
-const app = express();
+var app = express();
 
 /*
 app.all("/", function(req, res, next) {

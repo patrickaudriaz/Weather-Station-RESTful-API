@@ -1,5 +1,5 @@
 // Require the json2html module
-const json2html = require("node-json2html");
+var json2html = require("node-json2html");
 
 // In Express, a middleware is usually a function returning a function
 module.exports = function() {
@@ -9,12 +9,12 @@ module.exports = function() {
     // Check if the previous middleware left a result for you in req.result
     if (req.result) {
       // Read the request header and check if the client requested HTML
-      const check = req.accepts("text/html");
+      var check = req.accepts("text/html");
 
       if (req.accepts("text/html")) {
         // If HTML was requested, use json2html to transform the JSON into simple HTML
         console.info("HTML representation selected!");
-        const transform = {
+        var transform = {
           tag: "div",
           html: "<h1> ${name} </h1> Location: ${location} <br> URL: ${url} "
         };
