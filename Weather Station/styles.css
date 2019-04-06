@@ -78,10 +78,6 @@ body {
   min-height: 80vh;
 }
 
-.col {
-  padding: 0;
-}
-
 .carousel {
   margin-top: 50px;
   margin-bottom: 80px;
@@ -89,7 +85,7 @@ body {
 
 .carousel-item-container {
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 5px 65px -13px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 5px 65px -13px;
   background: rgba(53, 53, 53, 0.8);
   width: 100%;
   padding-bottom: 60px;
@@ -178,7 +174,5 @@ body {
 
 .chart {
   width: 90%;
-  margin: auto;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin: 50px auto;
 }

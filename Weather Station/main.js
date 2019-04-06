@@ -1,5 +1,5 @@
 //Station object
-var Station = function() {
+const Station = function () {
   this.id = 0;
   this.name = "";
   this.state = false;
@@ -8,18 +8,18 @@ var Station = function() {
   this.latitude = 0;
 };
 
-var IDindex = 0;
-var stations = [];
-var stationNbr;
+let IDindex = 0;
+const stations = [];
+let stationNbr;
 
 //Main Url for the first request
-var allURL = "http://appint01.tic.heia-fr.ch/";
+const allURL = "http://appint01.tic.heia-fr.ch/";
 
 
-var delay = 5000;
-var displayNbr = 20;
-var updateCount = 0;
-var graphState;
+const delay = 5000;
+const displayNbr = 20;
+let updateCount = 0;
+let graphState;
 
 // --------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ function getWeatherStationData() {
             " are ready !"
         );
         console.log(data.stations[index]);
-        var station = new Station();
+        const station = new Station();
         station.id = IDindex;
         station.url = value.url;
         station.latitude = value.latitude;
@@ -102,7 +102,7 @@ function updateDisplay(data) {
   );
 
   //Check if the state is true if so adding the grap
-  if (data.state == false) {
+  if (data.state === false) {
     $(".itemcontainer" + data.id).append(
       '<div class="carousel-item-name" onclick="stationToggle(' +
         data.id +
@@ -185,16 +185,16 @@ function updateDisplay(data) {
 
 // 5 ) Création d’une fonction permettant de mettre à jour les données d’une station météo
 function updateWeatherStationData(station) {
-  var ctxTemp = document.getElementById("line_chart_temp" + station.id);
-  var ctxHum = document.getElementById("line_chart_hum" + station.id);
-  var ctxPress = document.getElementById("line_chart_press" + station.id);
-  var line_chart_temp;
-  var line_chart_hum;
-  var line_chart_press;
+  const ctxTemp = document.getElementById("line_chart_temp" + station.id);
+  const ctxHum = document.getElementById("line_chart_hum" + station.id);
+  const ctxPress = document.getElementById("line_chart_press" + station.id);
+  let line_chart_temp;
+  let line_chart_hum;
+  let line_chart_press;
 
   console.log(station);
   console.log("GET from " + station.name);
-  var ajaxfct = function() {
+  const ajaxfct = function () {
     $.ajax({
       method: "GET",
       url: station.url,
@@ -204,7 +204,7 @@ function updateWeatherStationData(station) {
       },
 
       //In case of success generate the chart ctx from the data
-      success: function(data) {
+      success: function (data) {
         console.log(data);
 
         var date = new Date($.now());
@@ -219,10 +219,10 @@ function updateWeatherStationData(station) {
               datasets: [
                 {
                   label:
-                    data.sensors.temperature.name +
-                    " in [" +
-                    data.sensors.temperature.unit +
-                    "]",
+                      data.sensors.temperature.name +
+                      " in [" +
+                      data.sensors.temperature.unit +
+                      "]",
                   data: [data.sensors.temperature.current_condition.value],
                   borderColor: "#ecb984",
                   fontColor: "#DEDEDE",
@@ -268,9 +268,9 @@ function updateWeatherStationData(station) {
           station.temp = line_chart_temp;
         } else if (data.actuators.state.value == true) {
           addDataToChart(
-            line_chart_temp,
-            label,
-            data.sensors.temperature.current_condition.value
+              line_chart_temp,
+              label,
+              data.sensors.temperature.current_condition.value
           );
         } else {
           line_chart_temp = null;
@@ -284,10 +284,10 @@ function updateWeatherStationData(station) {
               datasets: [
                 {
                   label:
-                    data.sensors.humidity.name +
-                    " in [" +
-                    data.sensors.humidity.unit +
-                    "]",
+                      data.sensors.humidity.name +
+                      " in [" +
+                      data.sensors.humidity.unit +
+                      "]",
                   data: [data.sensors.humidity.current_condition.value],
                   borderColor: "#b68aec",
                   fontColor: "#DEDEDE",
@@ -333,9 +333,9 @@ function updateWeatherStationData(station) {
           station.hum = line_chart_hum;
         } else if (data.actuators.state.value == true) {
           addDataToChart(
-            line_chart_hum,
-            label,
-            data.sensors.humidity.current_condition.value
+              line_chart_hum,
+              label,
+              data.sensors.humidity.current_condition.value
           );
         } else {
           line_chart_hum = null;
@@ -349,10 +349,10 @@ function updateWeatherStationData(station) {
               datasets: [
                 {
                   label:
-                    data.sensors.pressure.name +
-                    " in [" +
-                    data.sensors.pressure.unit +
-                    "]",
+                      data.sensors.pressure.name +
+                      " in [" +
+                      data.sensors.pressure.unit +
+                      "]",
                   data: [data.sensors.pressure.current_condition.value],
                   borderColor: "#8BC6EC",
                   fontColor: "#DEDEDE",
@@ -398,16 +398,16 @@ function updateWeatherStationData(station) {
           station.press = line_chart_press;
         } else if (data.actuators.state.value == true) {
           addDataToChart(
-            line_chart_press,
-            label,
-            data.sensors.pressure.current_condition.value
+              line_chart_press,
+              label,
+              data.sensors.pressure.current_condition.value
           );
         } else {
           line_chart_press = null;
         }
       },
 
-      error: function(xhr, status, error) {
+      error: function (xhr, status, error) {
         alert("error");
         console.log("xhr: " + xhr);
         console.log("status: " + status);
@@ -419,7 +419,7 @@ function updateWeatherStationData(station) {
   console.log(station.state);
 
   //Calling back the ajax request for an update after the delay
-  if (station.state == true) {
+  if (station.state === true) {
     graphState = setInterval(ajaxfct, delay);
   }
   //ajaxfct();
@@ -444,9 +444,9 @@ function addDataToChart(chart, label, data) {
 
 // Auto-generate carousel indicator html
 function carouselIndicators() {
-  var bootCarousel = $(".carousel");
+  const bootCarousel = $(".carousel");
   bootCarousel.append("<ol class='carousel-indicators'></ol>");
-  var indicators = $(".carousel-indicators");
+  const indicators = $(".carousel-indicators");
   bootCarousel
     .find(".carousel-inner")
     .children(".carousel-item")
@@ -475,9 +475,9 @@ $(function() {
 
 // 6 ) Création d’un appel temporisé pour la mise à jour des valeurs de la station météo
 function stationToggle(name) {
-  for (var i = 0; i < stationNbr; i++) {
-    if (name == stations[i].id) {
-      if (stations[i].state == false) {
+  for (let i = 0; i < stationNbr; i++) {
+    if (name === stations[i].id) {
+      if (stations[i].state === false) {
         // start timer
         stations[i].state = true;
         switchWeatherStationState(stations[i].state, stations[i]);
