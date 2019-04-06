@@ -1,14 +1,14 @@
-var resources = require("./../resources/model"),
-  utils = require("./../utils/utils");
+const resources = require("./../resources/model"),
+    utils = require("./../utils/utils");
 
-var localParams = { frequency: 5000, location: "Paris" };
+let localParams = {frequency: 5000, location: "Paris"};
 
 var http = require("http");
 var timeOutVar;
 
 exports.start = function(params) {
   console.log("starting openweather-forecast plugin");
-  if (params != undefined) {
+  if (params !== undefined) {
     console.log(
       "params are: frequency " +
         params.frequency +

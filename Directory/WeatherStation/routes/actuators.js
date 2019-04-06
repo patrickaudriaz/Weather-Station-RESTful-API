@@ -1,4 +1,4 @@
-var express = require("express"),
+const express = require("express"),
     router = express.Router(),
     ressources = require("../resources/model"),
     openweather = require('../plugins/openweather-forecast');
@@ -18,7 +18,7 @@ router.route('/state').put(function (req, res, next) {
     if(req.is('application/json')) {
         console.log('PUT request : ', req.body);
 
-        var state = req.body.value;
+        const state = req.body.value;
 
         if(ressources.actuators.state.value !== state){
             if(state){

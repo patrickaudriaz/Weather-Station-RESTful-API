@@ -1,4 +1,4 @@
-var http = require("./servers/http"),
+const http = require("./servers/http"),
     ressources = require("./ressources/model");
 
 http.listen(ressources.port, function() {
