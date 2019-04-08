@@ -4,7 +4,7 @@ var express = require("express"),
   sensors = require("../routes/sensors"),
   converter = require("../middleware/converter"),
   parser = require("body-parser");
-
+c
 var app = express();
 
 app.use(parser.json());
@@ -15,6 +15,7 @@ app.use("/sensors", sensors);
 app.get("/", function(req, res, next) {
   res.status(200);
   res.setHeader("Content-Type", "application/json", "Accept: application/json");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   req.result = ressources;
   console.log("--> GET request");
   next();

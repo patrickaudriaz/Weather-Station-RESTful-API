@@ -13,7 +13,10 @@ const stations = [];
 let stationNbr;
 
 //Main Url for the first request
-const allURL = "http://appint01.tic.heia-fr.ch/";
+//http://appint01.tic.heia-fr.ch
+//http:localhost:8585
+const allURL = "http:localhost:8585";
+
 
 
 const delay = 5000;
@@ -36,8 +39,9 @@ function getWeatherStationData() {
   $.ajax({
     method: "GET",
     url: allURL,
+    crossDomain: true,
     headers: {
-      Accept: "application/json"
+      Accept: "application/json",
       //"Content-type" : "application/json"
     },
 
@@ -198,8 +202,9 @@ function updateWeatherStationData(station) {
     $.ajax({
       method: "GET",
       url: station.url,
+      crossDomain: true,
       headers: {
-        Accept: "application/json"
+        Accept: "application/json",
         //"Content-type" : "application/json"
       },
 
@@ -519,6 +524,7 @@ function switchWeatherStationState(state, station) {
     method: "PUT",
     accepts: "application/json",
     contentType: "application/json",
+    crossDomain: true,
     data: JSON.stringify({
       name: "Station state",
       value: state
