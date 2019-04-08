@@ -13,6 +13,7 @@ app.all("/", function(req, res, next) {
 
 app.get("/", function(req, res, next) {
   res.status(200);
+  res.setHeader("Access-Control-Allow-Origin", "*");
   req.result = ressources.directory;
   console.log("--> GET request");
   next();

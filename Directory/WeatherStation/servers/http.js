@@ -4,7 +4,7 @@ var express = require("express"),
   sensors = require("../routes/sensors"),
   converter = require("../middleware/converter"),
   parser = require("body-parser");
-c
+
 var app = express();
 
 app.use(parser.json());

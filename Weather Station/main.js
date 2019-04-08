@@ -14,8 +14,8 @@ let stationNbr;
 
 //Main Url for the first request
 //http://appint01.tic.heia-fr.ch
-//http:localhost:8585
-const allURL = "http:localhost:8585";
+//http://localhost:8585
+const allURL = "http://localhost:8585";
 
 
 
