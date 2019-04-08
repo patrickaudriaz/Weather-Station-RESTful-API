@@ -19,7 +19,7 @@ const allURL = "http://localhost:8585";
 
 
 
-const delay = 5000;
+const delay = 1000;
 const displayNbr = 20;
 let updateCount = 0;
 let graphState;
@@ -217,6 +217,7 @@ function updateWeatherStationData(station) {
 
         //Check if the chart already exist if so updating the datasets if not create a new one
         if (line_chart_temp == null) {
+          updateCount = 0;
           line_chart_temp = new Chart(ctxTemp, {
             type: "line",
             data: {
@@ -272,6 +273,7 @@ function updateWeatherStationData(station) {
           });
           station.temp = line_chart_temp;
         } else if (data.actuators.state.value === true) {
+
           addDataToChart(
               line_chart_temp,
               label,
@@ -524,7 +526,6 @@ function switchWeatherStationState(state, station) {
     method: "PUT",
     accepts: "application/json",
     contentType: "application/json",
-    crossDomain: true,
     data: JSON.stringify({
       name: "Station state",
       value: state
