@@ -7,7 +7,7 @@ var express = require("express"),
 
 // prepare every the coap GET requests
 router.route("/*").get(function(req, res, next) {
-  var coapUrl = "coap" + req.params[1]; // finding the url in the req parameters
+  var coapUrl = "coap" + req.params[3]; // finding the url in the req parameters
 
   // parsing the URI
   var uri = parseUri(coapUrl);

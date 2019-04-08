@@ -3,13 +3,15 @@ var express = require("express"),
     parser = require("body-parser");
 
 const pathToRegexp = require('path-to-regexp');
-const regexp = pathToRegexp('http://:foo/coap://');
+
+//var regexp = pathToRegexp(':foo/coap');
+var regexp = '([\/ \.-]*)*\/?coap*$\/';
+
 console.log("REGEX : " + regexp);
 
 var app = express();
 
 app.use(parser.json());
-
 app.use(regexp, coapRoute)
 
 module.exports = app;

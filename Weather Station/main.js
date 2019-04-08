@@ -18,7 +18,6 @@ let stationNbr;
 const allURL = "http://localhost:8585";
 
 
-
 const delay = 1000;
 const displayNbr = 20;
 let updateCount = 0;
@@ -540,8 +539,7 @@ function switchWeatherStationState(state, station) {
     },
     error: function(e) {
       $(".alert-text").html(
-        "Erreur: impossible de changer le statut de la station " +
-          device.location
+        "Erreur: impossible de changer le statut de la station "
       );
       $(".alert")
         .addClass("alert-danger")
