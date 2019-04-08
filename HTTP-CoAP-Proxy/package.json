@@ -1,11 +1,11 @@
 {
   "name": "http-coap-proxy",
   "version": "1.0.0",
-  "description": "Développement d’un service RESTful en utilisant Node.js",
-  "main": "./servers/http-coap-proxy.js",
+  "description": " Réalisation du service RESTful utilisant CoAP et à l’aide d’un proxy HTTP-CoAP",
+  "main": "coap-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./servers/http-coap-proxy.js"
+    "start": "node coap-server.js"
   },
   "author": "Tschopp, Audriaz",
   "license": "ISC",
