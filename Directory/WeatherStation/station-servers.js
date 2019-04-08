@@ -1,5 +1,5 @@
 var http = require("./servers/http"),
-  openweather = require("./plugins/openweather-forecast.js");
+    openweather = require("./plugins/openweather-forecast.js");
 
 var port = process.argv[2];
 console.log("port : " + port);

@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "coap": "^0.23.1",
     "express": "^4.16.4",
-    "node-json2html": "^1.2.0"
+    "node-json2html": "^1.2.0",
+    "path-to-regexp": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^5.15.3"
