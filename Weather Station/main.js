@@ -1,5 +1,5 @@
 //Station object
-let Station = function () {
+let Station = function() {
   this.id = 0;
   this.name = "";
   this.state = false;
@@ -16,7 +16,6 @@ let stationNbr;
 //http://appint01.tic.heia-fr.ch
 //http://localhost:8585
 const allURL = "http://localhost:8585";
-
 
 const delay = 1000;
 const displayNbr = 20;
@@ -40,7 +39,7 @@ function getWeatherStationData() {
     url: allURL,
     crossDomain: true,
     headers: {
-      Accept: "application/json",
+      Accept: "application/json"
       //"Content-type" : "application/json"
     },
 
@@ -197,18 +196,18 @@ function updateWeatherStationData(station) {
 
   console.log(station);
   console.log("GET from " + station.name);
-  const ajaxfct = function () {
+  const ajaxfct = function() {
     $.ajax({
       method: "GET",
       url: station.url,
       crossDomain: true,
       headers: {
-        Accept: "application/json",
+        Accept: "application/json"
         //"Content-type" : "application/json"
       },
 
       //In case of success generate the chart ctx from the data
-      success: function (data) {
+      success: function(data) {
         console.log(data);
 
         var date = new Date($.now());
@@ -224,10 +223,10 @@ function updateWeatherStationData(station) {
               datasets: [
                 {
                   label:
-                      data.sensors.temperature.name +
-                      " in [" +
-                      data.sensors.temperature.unit +
-                      "]",
+                    data.sensors.temperature.name +
+                    " in [" +
+                    data.sensors.temperature.unit +
+                    "]",
                   data: [data.sensors.temperature.current_condition.value],
                   borderColor: "#ecb984",
                   fontColor: "#DEDEDE",
@@ -272,11 +271,10 @@ function updateWeatherStationData(station) {
           });
           station.temp = line_chart_temp;
         } else if (data.actuators.state.value === true) {
-
           addDataToChart(
-              line_chart_temp,
-              label,
-              data.sensors.temperature.current_condition.value
+            line_chart_temp,
+            label,
+            data.sensors.temperature.current_condition.value
           );
         } else {
           line_chart_temp = null;
@@ -290,10 +288,10 @@ function updateWeatherStationData(station) {
               datasets: [
                 {
                   label:
-                      data.sensors.humidity.name +
-                      " in [" +
-                      data.sensors.humidity.unit +
-                      "]",
+                    data.sensors.humidity.name +
+                    " in [" +
+                    data.sensors.humidity.unit +
+                    "]",
                   data: [data.sensors.humidity.current_condition.value],
                   borderColor: "#b68aec",
                   fontColor: "#DEDEDE",
@@ -339,9 +337,9 @@ function updateWeatherStationData(station) {
           station.hum = line_chart_hum;
         } else if (data.actuators.state.value == true) {
           addDataToChart(
-              line_chart_hum,
-              label,
-              data.sensors.humidity.current_condition.value
+            line_chart_hum,
+            label,
+            data.sensors.humidity.current_condition.value
           );
         } else {
           line_chart_hum = null;
@@ -355,10 +353,10 @@ function updateWeatherStationData(station) {
               datasets: [
                 {
                   label:
-                      data.sensors.pressure.name +
-                      " in [" +
-                      data.sensors.pressure.unit +
-                      "]",
+                    data.sensors.pressure.name +
+                    " in [" +
+                    data.sensors.pressure.unit +
+                    "]",
                   data: [data.sensors.pressure.current_condition.value],
                   borderColor: "#8BC6EC",
                   fontColor: "#DEDEDE",
@@ -404,16 +402,16 @@ function updateWeatherStationData(station) {
           station.press = line_chart_press;
         } else if (data.actuators.state.value == true) {
           addDataToChart(
-              line_chart_press,
-              label,
-              data.sensors.pressure.current_condition.value
+            line_chart_press,
+            label,
+            data.sensors.pressure.current_condition.value
           );
         } else {
           line_chart_press = null;
         }
       },
 
-      error: function (xhr, status, error) {
+      error: function(xhr, status, error) {
         alert("error");
         console.log("xhr: " + xhr);
         console.log("status: " + status);

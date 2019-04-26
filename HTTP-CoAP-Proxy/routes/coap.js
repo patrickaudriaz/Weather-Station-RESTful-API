@@ -65,7 +65,7 @@ router.route("/*").put(function(req, res, next) {
   if (req.is("application/json")) {
     console.log("got a put request on state, body is ", req.body);
 
-    var coapUrl = "coap" + req.params[1]; // finding the url in the req parameters
+    var coapUrl = "coap" + req.params[3]; // finding the url in the req parameters
 
     // parsing the URI
     var uri = parseUri(coapUrl);
