@@ -200,7 +200,7 @@ function updateWeatherStationData(station) {
     $.ajax({
       method: "GET",
       url: station.url,
-      crossDomain: true,
+      // crossDomain: true,
       headers: {
         Accept: "application/json"
         //"Content-type" : "application/json"

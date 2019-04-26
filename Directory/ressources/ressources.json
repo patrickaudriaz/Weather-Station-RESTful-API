@@ -9,7 +9,7 @@
         "location": "Posieux",
         "latitude": "46.7743329",
         "longitude": "7.1114408",
-        "url": "http://localhost:8586/coap://appint03.tic.heia-fr.ch"
+        "url": "http://localhost:8586/coap://appint02.tic.heia-fr.ch"
       },
       {
         "name": "Weather station located in Moléson-Village",
