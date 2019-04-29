@@ -443,230 +443,219 @@ function updateWeatherStationData(data, station) {
   let line_chart_hum;
   let line_chart_press;
 
+  //In case of success generate the chart ctx from the data
+  //console.log(data);
 
-      //In case of success generate the chart ctx from the data
-        console.log(data);
+  var date = new Date($.now());
+  var label = date.getHours() + ":" + date.getMinutes();
 
-        var date = new Date($.now());
-        var label = date.getHours() + ":" + date.getMinutes();
-
-        //Check if the chart already exist if so updating the datasets if not create a new one
-        if (line_chart_temp == null) {
-          updateCount = 0;
-          line_chart_temp = new Chart(ctxTemp, {
-            type: "line",
-            data: {
-              labels: [label],
-              datasets: [
-                {
-                  label:
-                      data.sensors.temperature.name +
-                      " in [" +
-                      data.sensors.temperature.unit +
-                      "]",
-                  data: [data.sensors.temperature.current_condition.value],
-                  borderColor: "#ecb984",
-                  fontColor: "#DEDEDE",
-                  fill: false
-                }
-              ]
-            },
-            options: {
-              title: {
-                display: false
-              },
-              legend: {
-                labels: {
-                  fontColor: "#DEDEDE"
-                }
-              },
-              scales: {
-                scaleLabel: {
-                  fontColor: "#DEDEDE"
-                },
-                xAxes: [
-                  {
-                    gridLines: {
-                      display: false,
-                      color: "#DEDEDE",
-                      lineWidth: 2
-                    }
-                  }
-                ],
-
-                yAxes: [
-                  {
-                    gridLines: {
-                      display: false,
-                      color: "#DEDEDE",
-                      lineWidth: 2
-                    }
-                  }
-                ]
+  //Check if the chart already exist if so updating the datasets if not create a new one
+  if (line_chart_temp == null) {
+    updateCount = 0;
+    line_chart_temp = new Chart(ctxTemp, {
+      type: "line",
+      data: {
+        labels: [label],
+        datasets: [
+          {
+            label:
+              data.temperature.name + " in [" + data.temperature.unit + "]",
+            data: [data.temperature.current_condition.value],
+            borderColor: "#ecb984",
+            fontColor: "#DEDEDE",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: false
+        },
+        legend: {
+          labels: {
+            fontColor: "#DEDEDE"
+          }
+        },
+        scales: {
+          scaleLabel: {
+            fontColor: "#DEDEDE"
+          },
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: "#DEDEDE",
+                lineWidth: 2
               }
             }
-          });
-          station.temp = line_chart_temp;
-        } else if (data.actuators.state.value === true) {
-          addDataToChart(
-              line_chart_temp,
-              label,
-              data.sensors.temperature.current_condition.value
-          );
-        } else {
-          line_chart_temp = null;
-        }
+          ],
 
-        if (line_chart_hum == null) {
-          line_chart_hum = new Chart(ctxHum, {
-            type: "line",
-            data: {
-              labels: [label],
-              datasets: [
-                {
-                  label:
-                      data.sensors.humidity.name +
-                      " in [" +
-                      data.sensors.humidity.unit +
-                      "]",
-                  data: [data.sensors.humidity.current_condition.value],
-                  borderColor: "#b68aec",
-                  fontColor: "#DEDEDE",
-                  fill: false
-                }
-              ]
-            },
-            options: {
-              title: {
-                display: false
-              },
-              legend: {
-                labels: {
-                  fontColor: "#DEDEDE"
-                }
-              },
-              scales: {
-                scaleLabel: {
-                  fontColor: "#DEDEDE"
-                },
-                xAxes: [
-                  {
-                    gridLines: {
-                      display: false,
-                      color: "#DEDEDE",
-                      lineWidth: 2
-                    }
-                  }
-                ],
-
-                yAxes: [
-                  {
-                    gridLines: {
-                      display: false,
-                      color: "#DEDEDE",
-                      lineWidth: 2
-                    }
-                  }
-                ]
+          yAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: "#DEDEDE",
+                lineWidth: 2
               }
             }
-          });
-          station.hum = line_chart_hum;
-        } else if (data.actuators.state.value == true) {
-          addDataToChart(
-              line_chart_hum,
-              label,
-              data.sensors.humidity.current_condition.value
-          );
-        } else {
-          line_chart_hum = null;
+          ]
         }
+      }
+    });
+    station.temp = line_chart_temp;
+  } else if (data.actuators.state.value === true) {
+    addDataToChart(
+      line_chart_temp,
+      label,
+      data.temperature.current_condition.value
+    );
+  } else {
+    line_chart_temp = null;
+  }
 
-        if (line_chart_press == null) {
-          line_chart_press = new Chart(ctxPress, {
-            type: "line",
-            data: {
-              labels: [label],
-              datasets: [
-                {
-                  label:
-                      data.sensors.pressure.name +
-                      " in [" +
-                      data.sensors.pressure.unit +
-                      "]",
-                  data: [data.sensors.pressure.current_condition.value],
-                  borderColor: "#8BC6EC",
-                  fontColor: "#DEDEDE",
-                  fill: false
-                }
-              ]
-            },
-            options: {
-              title: {
-                display: false
-              },
-              legend: {
-                labels: {
-                  fontColor: "#DEDEDE"
-                }
-              },
-              scales: {
-                scaleLabel: {
-                  fontColor: "#DEDEDE"
-                },
-                xAxes: [
-                  {
-                    gridLines: {
-                      display: false,
-                      color: "#DEDEDE",
-                      lineWidth: 2
-                    }
-                  }
-                ],
-
-                yAxes: [
-                  {
-                    gridLines: {
-                      display: false,
-                      color: "#DEDEDE",
-                      lineWidth: 2
-                    }
-                  }
-                ]
+  if (line_chart_hum == null) {
+    line_chart_hum = new Chart(ctxHum, {
+      type: "line",
+      data: {
+        labels: [label],
+        datasets: [
+          {
+            label: data.humidity.name + " in [" + data.humidity.unit + "]",
+            data: [data.humidity.current_condition.value],
+            borderColor: "#b68aec",
+            fontColor: "#DEDEDE",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: false
+        },
+        legend: {
+          labels: {
+            fontColor: "#DEDEDE"
+          }
+        },
+        scales: {
+          scaleLabel: {
+            fontColor: "#DEDEDE"
+          },
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: "#DEDEDE",
+                lineWidth: 2
               }
             }
-          });
-          station.press = line_chart_press;
-        } else if (data.actuators.state.value == true) {
-          addDataToChart(
-              line_chart_press,
-              label,
-              data.sensors.pressure.current_condition.value
-          );
-        } else {
-          line_chart_press = null;
+          ],
+
+          yAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: "#DEDEDE",
+                lineWidth: 2
+              }
+            }
+          ]
         }
+      }
+    });
+    station.hum = line_chart_hum;
+  } else if (data.actuators.state.value == true) {
+    addDataToChart(
+      line_chart_hum,
+      label,
+      data.humidity.current_condition.value
+    );
+  } else {
+    line_chart_hum = null;
+  }
+
+  if (line_chart_press == null) {
+    line_chart_press = new Chart(ctxPress, {
+      type: "line",
+      data: {
+        labels: [label],
+        datasets: [
+          {
+            label: data.pressure.name + " in [" + data.pressure.unit + "]",
+            data: [data.pressure.current_condition.value],
+            borderColor: "#8BC6EC",
+            fontColor: "#DEDEDE",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: false
+        },
+        legend: {
+          labels: {
+            fontColor: "#DEDEDE"
+          }
+        },
+        scales: {
+          scaleLabel: {
+            fontColor: "#DEDEDE"
+          },
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: "#DEDEDE",
+                lineWidth: 2
+              }
+            }
+          ],
+
+          yAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: "#DEDEDE",
+                lineWidth: 2
+              }
+            }
+          ]
+        }
+      }
+    });
+    station.press = line_chart_press;
+  } else if (data.actuators.state.value == true) {
+    addDataToChart(
+      line_chart_press,
+      label,
+      data.pressure.current_condition.value
+    );
+  } else {
+    line_chart_press = null;
+  }
 }
 
-function observeStation (station, state) {
+function observeStation(station, state) {
+  console.log("Test state is : " + state);
+  var requestUrl = station.urlForObserver;
+  var sse = new EventSource(requestUrl);
   if (state) {
-    console.log("Testtt state is : " + state);
-    var requestUrl = station.urlForObserver;
-    var sse = new EventSource(requestUrl);
-
-    sse.onmessage = function (event) {
+    sse.onmessage = function(event) {
       //alert(event.data);
       console.log("new message");
-      console.log(event.data);
-      if (event.data == "undefined") {
+      if (event.data == "") {
         console.log("No new data !");
       } else {
+        console.log(event.data);
         var jsonData = JSON.parse(event.data);
         console.log("jsonData is : ");
         console.log(jsonData);
         updateWeatherStationData(jsonData, station);
-      };
-    }
+      }
+    };
+  } else {
+    sse.close();
   }
 }
 //Manage how tu add new data on the chart
