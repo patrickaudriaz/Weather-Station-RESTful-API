@@ -26,6 +26,8 @@ router.route("/*").get(function(req, res, next) {
     host: uri.host, // taking the host for example appint03.tic.heia-fr.ch
     port: uri.port === "" ? 5683 : uri.port, // Give a default value (5683) for the uri.port in case nothing is defined
     pathname: uri.path,
+    crossDomain: true,
+    crossOrigin: true,
     options: { Accept: "application/json" }
   });
 
@@ -75,6 +77,8 @@ router.route("/*").put(function(req, res, next) {
       host: uri.host, // taking the host for example appint03.tic.heia-fr.ch
       port: uri.port === "" ? 5683 : uri.port, // Give a default value (5683) for the uri.port in case nothing is defined
       pathname: uri.path,
+      crossDomain: true,
+      crossOrigin: true,
       options: { Accept: "application/json" }
     });
 
