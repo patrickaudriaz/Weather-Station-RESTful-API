@@ -9,21 +9,24 @@
         "location": "Posieux",
         "latitude": "46.7743329",
         "longitude": "7.1114408",
-        "url": "http://localhost:8586/coap://appint02.tic.heia-fr.ch"
+        "url": "http://localhost:8586/coap://appint02.tic.heia-fr.ch",
+        "urlForObserver": "http://localhost:8686/sse/coap://localhost:5683"
       },
       {
         "name": "Weather station located in Moléson-Village",
         "location": "Moléson-Village",
         "latitude": "46.5650200",
         "longitude": "7.0382000",
-        "url": "http://localhost:8586/coap://appint03.tic.heia-fr.ch"
+        "url": "http://localhost:8586/coap://appint03.tic.heia-fr.ch",
+        "urlForObserver": "http://localhost:8686/sse/coap://localhost:5683"
       },
       {
         "name": "Weather station located in Zermatt",
         "location": "Zermatt",
         "latitude": "46.0220560",
         "longitude": "7.7504690",
-        "url": "http://localhost:8586/coap://appint04.tic.heia-fr.ch"
+        "url": "http://localhost:8586/coap://appint04.tic.heia-fr.ch",
+        "urlForObserver": "http://localhost:8686/sse/coap://localhost:5683"
       }
     ]
   }
