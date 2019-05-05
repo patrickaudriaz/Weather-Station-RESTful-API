@@ -18,7 +18,7 @@ let stationNbr;
 //http://localhost:8585
 //http://appint01.tic.heia-fr.ch:8585
 //const allURL = "http://localhost:8585";
-const allURL = "http://appint01.tic.heia-fr.ch:8585";
+const allURL = "http://localhost:8585";
 
 const delay = 1000;
 const displayNbr = 20;

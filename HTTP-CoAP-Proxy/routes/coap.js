@@ -13,7 +13,7 @@ router.route("/*").get(function (req, res, next) {
     var isObserveReq = false;
 
     // Check if is a observable request
-    if (req.params[2] === "sse/") {
+    if (req.params[0] === "/sse/") {
         isObserveReq = true;
     }
 
@@ -56,7 +56,11 @@ router.route("/*").get(function (req, res, next) {
 
     if (isObserveReq) {
         //Creation of an SSE Client
-        var sseClient = sse(req, res);
+        var options = {ping: 50000};
+        var sseClient = sse(req, res, options);
+        sseClient.onClose(function () {
+            console.log("SSE client was closed")
+        });
 
         console.log("sseClient is created !");
 
@@ -80,10 +84,13 @@ router.route("/*").get(function (req, res, next) {
                 res.writeHead(httpReturnCode, {"Content-Type": "application/json"});
                 res.end(coapResponse);// End of the request
 
+
                 // Calling the upcomming middleware
                 next();
             });
         })
+
+        coapRequest.end();
 
     } else {
         var coapResponse = "";
