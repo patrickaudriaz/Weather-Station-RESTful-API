@@ -20,6 +20,7 @@ router.route("/*").get(function (req, res, next) {
     // parsing the URI
     var uri = parseUri(coapUrl);
 
+    /*
     var coapTiming = {
         ackTimeout: 0.5,
         ackRandomFactor: 1.0,
@@ -28,6 +29,7 @@ router.route("/*").get(function (req, res, next) {
         piggybackReplyMs: 10
     };
     coap.updateTiming(coapTiming);
+    */
 
     // preparing the coap GET request
     if (isObserveReq) {
@@ -68,7 +70,7 @@ router.route("/*").get(function (req, res, next) {
         coapRequest.on("response", function (coap_res) {
             coap_res.on("data", function (coap_data) {
                 coapResponse += coap_data;
-                sseClient.send(coapResponse);
+                sseClient.send(JSON.parse(coapResponse));
                 console.log("sseClient send response :" + coapResponse);
             });
 
