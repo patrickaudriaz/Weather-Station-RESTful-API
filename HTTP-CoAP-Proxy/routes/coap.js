@@ -58,7 +58,7 @@ router.route("/*").get(function (req, res, next) {
 
     if (isObserveReq) {
         //Creation of an SSE Client
-        var options = {ping: 50000};
+        var options = {ping: 5000};
         var sseClient = sse(req, res, options);
         sseClient.onClose(function () {
             console.log("SSE client was closed")
@@ -69,7 +69,7 @@ router.route("/*").get(function (req, res, next) {
         var coapResponse = "";
         coapRequest.on("response", function (coap_res) {
             coap_res.on("data", function (coap_data) {
-                coapResponse += coap_data;
+                coapResponse = coap_data;
                 sseClient.send(JSON.parse(coapResponse));
                 console.log("sseClient send response :" + coapResponse);
             });
