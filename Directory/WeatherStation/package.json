@@ -9,7 +9,7 @@
   "author": "Tschopp, Audriaz",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "node-json2html": "^1.2.0"
   }
 }
