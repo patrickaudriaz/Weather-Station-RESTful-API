@@ -10,9 +10,9 @@
   "author": "Tschopp, Audriaz",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "coap": "^0.23.1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "node-json2html": "^1.2.0",
     "path-to-regexp": "^3.0.0",
     "sse-node": "^1.0.2"
