@@ -12,7 +12,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "coap": "^0.23.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "node-json2html": "^1.2.0",
     "path-to-regexp": "^3.0.0",
     "sse-node": "^1.0.2"
